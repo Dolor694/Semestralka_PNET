@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Gym.Models.Entities
 {
-    internal class TrainingType : TemplateID
+    public class TrainingType
     {
+        public int IdTrainingType { get; set; }
+        public string TypeName { get; set; } = string.Empty;
 
+        // Navigation
+        public ICollection<TrainingPlan> TrainingPlans { get; set; } = [];
+        public ICollection<TrainingTypeSequence> TrainingTypeSequences { get; set; } = [];
 
     }
 }

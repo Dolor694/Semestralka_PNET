@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Gym.Models.Entities
 {
-    internal class ExerciseInTraining
+    public class ExerciseInTraining
     {
+        private int PlanExerciseId { get; set; }
+
+        private int ExerciseId { get; set; }
+
+        public int sets { get; set; }
+
+        public int reps { get; set; }
+
+        public int order { get; set; }
+
     }
 }
