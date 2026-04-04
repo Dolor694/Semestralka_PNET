@@ -8,7 +8,7 @@ namespace Gym.Models.Entities
 {
     public class User
     {
-        public int IdUser { get; set; }
+        public int Id { get; set; }
         public string Username { get; set; } = string.Empty;
         public double Weight { get; set; }
         public string Password { get; set; } = string.Empty; 

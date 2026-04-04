@@ -10,15 +10,11 @@ namespace Gym.Models.Entities
     {
 
         private int Id { get; set; }
+        private string Name { get; set; } = string.Empty;
+        private bool Complex { get; set; } = false;
+        private int IdMuscle { get; set; }
 
-        private string name { get; set; } = string.Empty;
-
-        private bool complex { get; set; } = false;
-
-        private int MuscleId { get; set; }
-
+        public Muscle Muscle { get; set; } = null!;
         public ICollection<ExerciseInTraining> ExercisesInTraining { get; set; } = [];
-
-        public Exercise() { }
     }
 }

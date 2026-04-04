@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 
 namespace Gym.Models.Entities
 {
-    public class AimOfTraining
+    public class AimOfPlan
     {
         private int Id { get; set; }
-        private string description { get; set; }
+        private string Description { get; set; } = String.Empty; 
 
 
         public ICollection<TrainingPlan> TrainingPlans { get; set; } = [];
-
-        public AimOfTraining(string description)
-        {
-            this.description = description;
-        }
     }
 }

@@ -8,14 +8,14 @@ namespace Gym.Models.Entities
 {
     public class TrainingTypeSequence
     {
-        public int IdSequence { get; set; }
-        public int TrainingTypeIdTrainingType { get; set; }
-        public int MuscleGroupsIdMuscleGroup { get; set; }
-        public int OrderInCycle { get; set; }
+        private int Id { get; set; }
+        private int OrderInCycle { get; set; }
+        private int IdTrainingType { get; set; }
+        private int IdMuscleGroup { get; set; }
 
         // Navigation
         public TrainingType TrainingType { get; set; } = null!;
         public MuscleGroup MuscleGroup { get; set; } = null!;
-
+        public ICollection<Training> Trainings { get; set; } = [];
     }
 }

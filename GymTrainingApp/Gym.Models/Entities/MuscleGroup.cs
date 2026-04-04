@@ -9,7 +9,7 @@ namespace Gym.Models.Entities
     public class MuscleGroup
     {
         private int Id { get; set; }
-        private string name { get; set; } = string.Empty;
+        private string Name { get; set; } = string.Empty;
 
 
         public ICollection<Muscle> Muscles { get; set; } = [];

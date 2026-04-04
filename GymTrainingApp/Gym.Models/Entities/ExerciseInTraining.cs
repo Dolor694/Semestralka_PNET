@@ -8,15 +8,15 @@ namespace Gym.Models.Entities
 {
     public class ExerciseInTraining
     {
-        private int PlanExerciseId { get; set; }
+        public int Sets { get; set; }
 
-        private int ExerciseId { get; set; }
+        public int Reps { get; set; }
 
-        public int sets { get; set; }
+        public int Order { get; set; }
 
-        public int reps { get; set; }
 
-        public int order { get; set; }
+        public Exercise Exercise { get; set; } = null!;
+        public Training Training { get; set; } = null!;
 
     }
 }

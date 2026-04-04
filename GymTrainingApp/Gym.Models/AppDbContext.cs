@@ -19,6 +19,8 @@ namespace Gym.Models
         public DbSet<Muscle> Muscles { get; set; }
         public DbSet<TrainingType> TrainingTypes { get; set; }
         public DbSet<TrainingTypeSequence> TrainingTypeSequences { get; set; }
-        public DbSet<AimOfTraining> AimsOfTraining { get; set; }
+        public DbSet<AimOfPlan> AimsOfTraining { get; set; }
+
+        
     }
 }
