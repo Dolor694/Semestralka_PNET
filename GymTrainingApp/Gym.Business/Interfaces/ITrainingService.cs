@@ -8,9 +8,10 @@ namespace Gym.Business.Interfaces
 {
 	public interface ITrainingService
 	{
+
         IReadOnlyList<TrainingDTO> GetAllTrainingsFromPlan(int idTrainingPlan);
 		TrainingDTO GetTrainingById(int id);
-		TrainingDTO CreateTraining(int id);
+		TrainingDTO CreateTraining(int id, int id);
 		TrainingDTO UpdateTraining(int id, IReadOnlyList<ExerciseInTrainingDTO> exercises);
 		bool DeleteTraining(int id);
 	}

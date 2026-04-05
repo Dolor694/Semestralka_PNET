@@ -10,6 +10,7 @@ namespace Gym.Models.Entities
     {
         private int Id { get; set; }
         private string Name { get; set; } = string.Empty;
+        private int IdMuscleGroup { get; set; }
 
         public MuscleGroup MuscleGroup { get; set; } = null!;
         public ICollection<Exercise> Exercises { get; set; } = [];

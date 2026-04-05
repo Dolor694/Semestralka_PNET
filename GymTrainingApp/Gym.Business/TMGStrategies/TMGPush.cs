@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gym.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Strategies
 {
-    internal class AOPLoseWeight : IAimOfPlanStrategy
+    internal class TMGPush : ITrainingMuscleGroupStrategy
     {
-        public IReadOnlyList<ExerciseDTO> GenerateTrainingForPlan()
+        public IReadOnlyList<Exercise> GenerateTrainingForPlan()
         {
-            //TODO: implement this method to generate exercises for losing weight
             throw new NotImplementedException();
         }
     }

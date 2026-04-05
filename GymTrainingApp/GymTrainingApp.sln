@@ -4,8 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.37012.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.UI", "Gym.UI\Gym.UI.csproj", "{D4349DB6-88E6-4766-9DF1-A555525059B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1E4B0564-9412-49EA-B947-1234BAA1A520} = {1E4B0564-9412-49EA-B947-1234BAA1A520}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Business", "Gym.Business\Gym.Business.csproj", "{1E4B0564-9412-49EA-B947-1234BAA1A520}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C80ADB7-94E6-43D5-9574-94D80C938295} = {4C80ADB7-94E6-43D5-9574-94D80C938295}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Models", "Gym.Models\Gym.Models.csproj", "{4C80ADB7-94E6-43D5-9574-94D80C938295}"
 EndProject

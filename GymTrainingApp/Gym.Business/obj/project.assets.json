@@ -198,6 +198,19 @@
         "build": {
           "buildTransitive/net6.0/_._": {}
         }
+      },
+      "Gym.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.25"
+        },
+        "compile": {
+          "bin/placeholder/Gym.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Gym.Models.dll": {}
+        }
       }
     }
   },
@@ -553,10 +566,16 @@
         "microsoft.extensions.primitives.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Gym.Models/1.0.0": {
+      "type": "project",
+      "path": "../Gym.Models/Gym.Models.csproj",
+      "msbuildProject": "../Gym.Models/Gym.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Gym.Models >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.25"
     ]
   },
@@ -592,7 +611,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Gym.Models.csproj": {
+              "projectPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Gym.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
