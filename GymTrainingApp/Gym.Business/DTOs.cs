@@ -15,5 +15,4 @@ namespace Gym.Business
     public record TrainingPlanDTO(int Id, string Name, AimOfPlanDTO AimOfTraining);
     public record TrainingTypeDTO(int Id, string Name);
     public record UserDTO(int Id, string Username, double Weight);
-    public record UserWithPasswordDTO(int Id, string Username, double Weight, string Password);
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gym.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,12 @@ namespace Gym.Business.Interfaces
 {
     internal interface IUserService
     {
-        IReadOnlyList<UserDTO> GetAllUsers();
-        UserDTO GetUserById(int id);
-        UserDTO GetUserByUsername(string username);
-        UserWithPasswordDTO GetUserByNameForValidation(string username);
-        UserDTO CreateUser(int id, string username, string password, double weight);
+        UserDTO? GetUserById(int id);
+        UserDTO? GetUserByUsername(string username);
+        User GetUserForValidation(string username);
+        User CreateUser(int id, string username, string password, double weight);
         UserDTO UpdateUser(int id, string? username, string? password, double? weight);
-        bool ValidateUser(string username, string password);
+        bool ValidatePassword(string username, string password);
         bool DeleteUser(int id);
     }
 }

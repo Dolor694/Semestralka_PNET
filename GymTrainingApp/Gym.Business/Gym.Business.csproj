@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Genrators\" />
+    <ProjectReference Include="..\Gym.Models\Gym.Models.csproj" />
   </ItemGroup>
 
 </Project>

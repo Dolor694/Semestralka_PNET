@@ -1,0 +1,18 @@
+﻿using Gym.Models.Data;
+using Gym.Models.Entities;
+using Gym.Models.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Gym.Models.Database
+{
+    public class DatabaseAimOfPlanRepo : DatabaseRepository<AimOfPlan>, IAimOfPlanRepository
+    {
+        public DatabaseAimOfPlanRepo(GymDbContext context) : base(context)
+        {
+        }
+    }
+}

@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gym.Models.Entities
 {
     public class Muscle
     {
-        private int Id { get; set; }
-        private string Name { get; set; } = string.Empty;
-        private int IdMuscleGroup { get; set; }
+        [Key]
+        public int Id { get; set; }
 
+        [Required]
+        [MaxLength(100)]
+        public string Name { get; set; } = string.Empty;
+
+        [ForeignKey(nameof(MuscleGroup))]
+        public int IdMuscleGroup { get; set; }
+
+        // Navigation
         public MuscleGroup MuscleGroup { get; set; } = null!;
         public ICollection<Exercise> Exercises { get; set; } = [];
     }
