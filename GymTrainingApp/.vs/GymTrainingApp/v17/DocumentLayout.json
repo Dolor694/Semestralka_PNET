@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\services\\usersevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\services\\usersevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.models\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|solutionrelative:gym.models\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.models\\database\\databaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|solutionrelative:gym.models\\database\\databaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.models\\database\\databaseuserrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|solutionrelative:gym.models\\database\\databaseuserrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 86,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,71 +18,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Interfaces\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "Gym.Models\\Interfaces\\IUserRepository.cs",
-              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Interfaces\\IUserRepository.cs",
-              "RelativeToolTip": "Gym.Models\\Interfaces\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-05T19:54:38.607Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DatabaseRepository.cs",
-              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Database\\DatabaseRepository.cs",
-              "RelativeDocumentMoniker": "Gym.Models\\Database\\DatabaseRepository.cs",
-              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Database\\DatabaseRepository.cs",
-              "RelativeToolTip": "Gym.Models\\Database\\DatabaseRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-05T19:54:20.94Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DatabaseUserRepo.cs",
-              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Database\\DatabaseUserRepo.cs",
-              "RelativeDocumentMoniker": "Gym.Models\\Database\\DatabaseUserRepo.cs",
-              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Database\\DatabaseUserRepo.cs",
-              "RelativeToolTip": "Gym.Models\\Database\\DatabaseUserRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-05T19:49:02.856Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\Interfaces\\IUserService.cs",
-              "RelativeDocumentMoniker": "Gym.Business\\Interfaces\\IUserService.cs",
-              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\Interfaces\\IUserService.cs",
-              "RelativeToolTip": "Gym.Business\\Interfaces\\IUserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAswBIAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-05T19:22:16.906Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserSevice.cs",
-              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\Services\\UserSevice.cs",
-              "RelativeDocumentMoniker": "Gym.Business\\Services\\UserSevice.cs",
-              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\Services\\UserSevice.cs",
-              "RelativeToolTip": "Gym.Business\\Services\\UserSevice.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAuwHQAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-05T19:22:09.585Z",
-              "EditorCaption": ""
             }
           ]
         }

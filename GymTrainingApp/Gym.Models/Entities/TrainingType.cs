@@ -9,7 +9,7 @@ namespace Gym.Models.Entities
 
         [Required]
         [MaxLength(100)]
-        public string TypeName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         // Navigation
         public ICollection<TrainingPlan> TrainingPlans { get; set; } = [];

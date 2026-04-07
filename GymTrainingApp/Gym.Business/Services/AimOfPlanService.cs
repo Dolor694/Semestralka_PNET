@@ -18,58 +18,77 @@ namespace Gym.Business.Services
             _aimOfPlanRepository = aimOfPlanRepository;
         }
 
-        public AimOfPlan CreateAimOfPlan(int id, string name)
+        public AimOfPlan CreateAimOfPlan(int id, string description)
         {
-            if (string.IsNullOrEmpty(name))
+            AimOfPlan newAimOfPlan = new AimOfPlan
             {
-                throw new ArgumentException("Name cannot be null or empty.", nameof(name));
-            }
+                Id = id,
+                Description = description
+            };
 
-            AimOfPlan aim = new AimOfPlan{Id = id, Description = name};
+            _aimOfPlanRepository.Add(newAimOfPlan);
 
-            _aimOfPlanRepository.Add(aim);
-
-            return aim;
-        }
-
-        public bool DeleteAimOfPlan(int id)
-        {
-            AimOfPlan? aim = _aimOfPlanRepository.GetById(id);
-
-            if (aim == null)
-            {
-                return false;
-            }
-
-            _aimOfPlanRepository.Delete(aim);
-
-            return true;
+            return newAimOfPlan;
         }
 
         public AimOfPlanDTO? GetAimOfPlanById(int id)
         {
-            AimOfPlan? aim = _aimOfPlanRepository.GetById(id);
+            if (id <= 0)
+            {
+                throw new ArgumentException("Id must be a positive integer.", nameof(id));
+            }
 
-            if (aim == null)
+            AimOfPlan? aimOfPlan = _aimOfPlanRepository.GetById(id);
+
+            if (aimOfPlan == null)
             {
                 return null;
             }
 
-            return MapAimOfPlanToDTO(aim);
+            return MapToAimOfPlanDTO(aimOfPlan);
         }
 
-        public AimOfPlanDTO MapAimOfPlanToDTO(AimOfPlan aimOfPlan)
+        public AimOfPlanDTO UpdateAimOfPlan(int id, string? description)
+        {
+            AimOfPlan? aimOfPlan = _aimOfPlanRepository.GetById(id);
+
+            if (aimOfPlan == null)
+            {
+                throw new Exception($"AimOfPlan with id '{id}' not found.");
+            }
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                aimOfPlan.Description = description;
+            }
+
+            _aimOfPlanRepository.Update(aimOfPlan);
+
+            return MapToAimOfPlanDTO(aimOfPlan);
+        }
+
+        public bool DeleteAimOfPlan(int id)
+        {
+            AimOfPlan? aimOfPlan = _aimOfPlanRepository.GetById(id);
+
+            if (aimOfPlan == null)
+            {
+                return false;
+            }
+
+            _aimOfPlanRepository.Delete(aimOfPlan);
+            return true;
+        }
+
+        /*
+         * This method maps an AimOfPlan entity to an AimOfPlanDTO object.
+         * 
+         * @param aimOfPlan The AimOfPlan entity to be mapped.
+         * @return An AimOfPlanDTO object containing the mapped information from the AimOfPlan entity.
+         */
+        private AimOfPlanDTO MapToAimOfPlanDTO(AimOfPlan aimOfPlan)
         {
             return new AimOfPlanDTO(aimOfPlan.Id, aimOfPlan.Description);
-        }
-
-        public AimOfPlan UpdateAimOfPlan(int id, string? name)
-        {
-            AimOfPlan aim = new AimOfPlan { Id = id, Description = name ?? string.Empty };
-
-            _aimOfPlanRepository.Update(aim);
-
-            return aim;
         }
     }
 }
