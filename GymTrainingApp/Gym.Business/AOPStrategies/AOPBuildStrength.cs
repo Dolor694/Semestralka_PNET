@@ -1,4 +1,5 @@
-﻿using Gym.Models.Entities;
+﻿using Gym.Business.TrainingGenerator;
+using Gym.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,39 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.AOPStrategies
 {
-    internal class AOPBuildStrength : IAimOfPlanStrategy
+    public class AOPBuildStrength : IAimOfPlanStrategy
     {
+        protected readonly IExerciseMapper _exerciseMapper;
+
+        public AOPBuildStrength()
+        {
+            _exerciseMapper = new ExerciseMapper();
+        }
         public IReadOnlyList<ExerciseInTraining> SetParametersOfExercises(List<Exercise> exercises)
         {
-            throw new NotImplementedException();
+            Random random = new Random();
+            List<ExerciseInTraining> exercisesInTraining = new List<ExerciseInTraining>();
+
+            int order = 2;
+
+            foreach (var exercise in exercises)
+            {
+                if (exercise.Complex)
+                {
+                    int sets = random.Next(3, 5);
+                    int reps = random.Next(3, 6);
+                    exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, 1));
+                }
+                else
+                {
+                    int sets = random.Next(3, 5);
+                    int reps = random.Next(8, 13);
+                    exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, order));
+                    order++;
+                }
+            }
+
+            return exercisesInTraining;
         }
     }
 }

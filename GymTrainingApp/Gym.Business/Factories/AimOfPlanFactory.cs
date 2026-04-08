@@ -9,10 +9,19 @@ namespace Gym.Business.Factories
 {
     public class AimOfPlanFactory
     {
-            public IAimOfPlanStrategy Create(int idAimOfPlan)
+        public IAimOfPlanStrategy Create(int idAimOfPlan)
+        {
+            switch (idAimOfPlan)
             {
-                throw new NotImplementedException();
-            // Switch based on the idAimOfPlan
+                case 1:
+                    return new AOPBuildMuscle();
+                case 2:
+                    return new AOPBuildStrength();
+                case 3:
+                    return new AOPLoseWeight();
+                default:
+                    throw new ArgumentException($"Invalid idAimOfPlan: {idAimOfPlan}");
+            }
         }
     }
 }
