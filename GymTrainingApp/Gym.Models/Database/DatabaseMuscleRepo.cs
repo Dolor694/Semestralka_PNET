@@ -14,5 +14,11 @@ namespace Gym.Models.Database
         public DatabaseMuscleRepo(GymDbContext context) : base(context)
         {
         }
+
+        public IEnumerable<Muscle> GetMusclesByGroup(int idMuscleGroup)
+        {
+            return _context.Muscles
+                .Where(e => e.IdMuscleGroup == idMuscleGroup) .ToList();
+        }
     }
 }

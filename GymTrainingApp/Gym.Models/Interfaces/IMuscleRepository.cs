@@ -9,6 +9,6 @@ namespace Gym.Models.Interfaces
 {
     public interface IMuscleRepository : IRepository<Muscle>
     {
-
+        public IEnumerable<Muscle> GetMusclesByGroup(int idMuscleGroup);
     }
 }

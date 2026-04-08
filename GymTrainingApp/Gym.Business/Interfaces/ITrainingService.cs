@@ -45,5 +45,21 @@ namespace Gym.Business.Interfaces
          * @return A boolean value indicating whether the training was successfully deleted (true) or not found (false).
          */
         bool DeleteTraining(int id);
+
+        /*
+         * This method retrieves all trainings associated with a specific training plan.
+         * 
+         * @param idPlan The ID of the training plan for which to retrieve the trainings.
+         * @return An enumerable collection of TrainingDTO objects that are associated with the specified training plan.
+         */
+        IEnumerable<TrainingDTO> GetTrainingsByPlan(int idPlan);
+
+        /*
+         * This method retrieves the most recent training associated with a specific training plan.
+         * 
+         * @param idPlan The ID of the training plan for which to retrieve the most recent training.
+         * @return A Training object representing the most recent training associated with the specified training plan, or null if no trainings are found for that plan.
+         */
+        Training? GetLastTrainingInPlan(int idPlan);
     }
 }

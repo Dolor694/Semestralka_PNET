@@ -87,6 +87,29 @@ namespace Gym.Business.Services
             return true;
         }
 
+        public IEnumerable<TrainingDTO> GetTrainingsByPlan(int idPlan)
+        {
+            if (idPlan <= 0)
+            {
+                throw new ArgumentException("Id must be a positive integer.", nameof(idPlan));
+            }
+
+            IEnumerable<Training> trainings = _trainingRepository.GetTrainingsByPlan(idPlan);
+            return trainings.Select(MapToTrainingDTO);
+        }
+
+        public Training? GetLastTrainingInPlan(int idPlan)
+        {
+            if (idPlan <= 0)
+            {
+                throw new ArgumentException("Id must be a positive integer.", nameof(idPlan));
+            }
+            
+            IEnumerable<Training> trainings = _trainingRepository.GetTrainingsByPlan(idPlan);
+
+            return trainings.OrderByDescending(t => t.Date).FirstOrDefault();
+        }
+
         /*
          * This method maps a Training entity to a TrainingDTO object.
          * 

@@ -14,8 +14,9 @@ namespace Gym.Business.TrainingGenerator
          * 
          * @param exercises list of exercises to select from
          * @param numberOfExercises number of exercises to select
+         * @param idMuscleGroup id of the muscle group to select exercises for
          * @return list of selected exercises
          */
-        public IEnumerable<Exercise> SelectExercises(IEnumerable<Exercise> exercises, int numberOfExercises);
+        public IEnumerable<Exercise> SelectExercises(IEnumerable<Exercise> exercises, int numberOfExercises, int idMuscleGroup);
     }
 }
