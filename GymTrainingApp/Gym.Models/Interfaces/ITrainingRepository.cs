@@ -16,5 +16,13 @@ namespace Gym.Models.Interfaces
          * @return An enumerable collection of Training objects that are associated with the specified training plan.
          */
         public IEnumerable<Training> GetTrainingsByPlan(int idPlan);
+
+        /*
+         * This method retrieves the most recent training associated with a specific training plan, identified by its ID.
+         * 
+         * @param idPlan The ID of the training plan for which to retrieve the last training.
+         * @return A Training object representing the most recent training associated with the specified training plan, or null if no trainings are found.
+         */
+        public Training? GetLastTrainingByPlan(int idPlan);
     }
 }

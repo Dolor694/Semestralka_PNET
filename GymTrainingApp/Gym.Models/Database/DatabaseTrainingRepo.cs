@@ -19,5 +19,12 @@ namespace Gym.Models.Database
         {
             return _context.Trainings.Where(t => t.IdTrainingPlan == idPlan).OrderBy(t => t.Date).ToList();
         }
+
+        public Training? GetLastTrainingByPlan(int idPlan)
+        {
+            return _context.Trainings.Where(t => t.IdTrainingPlan == idPlan).
+                OrderByDescending(t => t.Date).
+                FirstOrDefault();
+        }
     }
 }

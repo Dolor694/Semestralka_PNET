@@ -12,13 +12,8 @@ namespace Gym.Business.Interfaces
         /*
          * This method creates a new training.
          * 
-         * @param id The unique identifier for the training.
-         * @param date The date of the training.
-         * @param idTrainingPlan The identifier of the training plan this training belongs to.
-         * @param idTrainingTypeSequence The identifier of the training type sequence.
-         * @return The created training object.
          */
-        Training CreateTraining(int id, DateOnly date, int idTrainingPlan, int idTrainingTypeSequence);
+        Training CreateTraining();
 
         /*
          * This method retrieves a training by its unique identifier.

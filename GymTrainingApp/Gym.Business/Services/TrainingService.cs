@@ -1,3 +1,4 @@
+using Gym.Business.TrainingGenerator;
 using Gym.Business.Interfaces;
 using Gym.Models.Entities;
 using Gym.Models.Interfaces;
@@ -12,25 +13,17 @@ namespace Gym.Business.Services
     public class TrainingService : ITrainingService
     {
         protected readonly ITrainingRepository _trainingRepository;
+        protected readonly ITrainingGenerator _trainingGenerator;
 
-        public TrainingService(ITrainingRepository trainingRepository)
+        public TrainingService(ITrainingRepository trainingRepository, ITrainingGenerator trainingGenerator)
         {
             _trainingRepository = trainingRepository;
+            _trainingGenerator = trainingGenerator;
         }
 
-        public Training CreateTraining(int id, DateOnly date, int idTrainingPlan, int idTrainingTypeSequence)
+        public Training CreateTraining()
         {
-            Training newTraining = new Training
-            {
-                Id = id,
-                Date = date,
-                IdTrainingPlan = idTrainingPlan,
-                IdTrainingTypeSequence = idTrainingTypeSequence
-            };
-
-            _trainingRepository.Add(newTraining);
-
-            return newTraining;
+            return _trainingGenerator.GenerateTraining();
         }
 
         public TrainingDTO? GetTrainingById(int id)
