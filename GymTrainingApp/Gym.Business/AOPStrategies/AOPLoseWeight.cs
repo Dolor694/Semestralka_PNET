@@ -16,7 +16,7 @@ namespace Gym.Business.AOPStrategies
         {
             _exerciseMapper = new ExerciseMapper();
         }
-        public IReadOnlyList<ExerciseInTraining> SetParametersOfExercises(List<Exercise> exercises)
+        public List<ExerciseInTraining> SetParametersOfExercises(List<Exercise> exercises, int idTraining)
         {
             Random random = new Random();
             List<ExerciseInTraining> exercisesInTraining = new List<ExerciseInTraining>();
@@ -29,13 +29,13 @@ namespace Gym.Business.AOPStrategies
                 {
                     int sets = random.Next(5, 7);
                     int reps = random.Next(6, 11);
-                    exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, 1));
+                    exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, 1, idTraining));
                 }
                 else
                 {
                     int sets = random.Next(3, 5);
                     int reps = random.Next(15, 21);
-                    exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, order));
+                    exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, order, idTraining));
                     order++;
                 }
             }

@@ -16,8 +16,9 @@ namespace Gym.Business.TrainingGenerator
          * @param numberOfSeries - the number of series for the exercise.
          * @param numberOfRepetitions - the number of repetitions for the exercise.
          * @param order - the order of the exercise in the training.
+         * @param idTraining - the ID of the training to which the exercise belongs.
          * @return an ExerciseInTraining object with the specified parameters.
          */
-        public ExerciseInTraining MapExercise(Exercise exercise, int numberOfSeries, int numberOfRepetitions, int order);
+        public ExerciseInTraining MapExercise(Exercise exercise, int numberOfSeries, int numberOfRepetitions, int order, int idTraining);
     }
 }

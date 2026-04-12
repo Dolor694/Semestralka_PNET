@@ -9,14 +9,15 @@ namespace Gym.Business.TrainingGenerator
 {
     public class ExerciseMapper : IExerciseMapper
     {
-        public ExerciseInTraining MapExercise(Exercise exercise, int numberOfSeries, int numberOfRepetitions, int order)
+        public ExerciseInTraining MapExercise(Exercise exercise, int numberOfSeries, int numberOfRepetitions, int order, int idTraining)
         {
             return new ExerciseInTraining
             {
                 IdExercise = exercise.Id,
                 Sets = numberOfSeries,
                 Reps = numberOfRepetitions,
-                Order = order
+                Order = order,
+                IdTraining = idTraining
             };
         }
     }

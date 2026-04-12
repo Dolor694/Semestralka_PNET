@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Interfaces
 {
-    internal interface IExerciseInTrainingService
+    public interface IExerciseInTrainingService
     {
         /*
          * This method creates a new exercise in training.
@@ -48,5 +48,13 @@ namespace Gym.Business.Interfaces
          * @return A boolean value indicating whether the exercise in training was successfully deleted (true) or not found (false).
          */
         bool DeleteExerciseInTraining(int id);
+
+        /*
+         * This method adds an exercise to a reportory of exercises in training.
+         * 
+         * @param exerciseInTraining The exercise in training object to be added.
+         * @return The added exercise in training object.
+         */
+        ExerciseInTraining AddExerciseInTraining(ExerciseInTraining exerciseInTraining);
     }
 }

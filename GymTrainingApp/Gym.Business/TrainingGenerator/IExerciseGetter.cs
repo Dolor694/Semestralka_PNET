@@ -17,6 +17,6 @@ namespace Gym.Business.TrainingGenerator
          * @param IdMuscleGroup id of the muscle group
          * @return list of exercises, which train the muscle group
          */
-        public IEnumerable<Exercise> GetExercisesByMuscleGroup(int IdMuscleGroup);
+        public IEnumerable<Exercise> GetExercisesByMuscleGroup(int IdMuscleGroup); 
     }
 }

@@ -94,6 +94,18 @@ namespace Gym.Business.Services
             return true;
         }
 
+       
+        public ExerciseInTraining AddExerciseInTraining(ExerciseInTraining exerciseInTraining)
+        {
+            if (exerciseInTraining == null)
+            {
+                throw new ArgumentNullException(nameof(exerciseInTraining), "ExerciseInTraining cannot be null.");
+            }
+
+            _exerciseInTrainingRepository.Add(exerciseInTraining);
+            return exerciseInTraining;
+        }
+
         /*
          * This method maps an ExerciseInTraining entity to an ExerciseInTrainingDTO object.
          * 

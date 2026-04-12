@@ -26,5 +26,28 @@ namespace Gym.Models.Database
                 OrderByDescending(t => t.Date).
                 FirstOrDefault();
         }
+
+        public int GetTrainingAimOfPlanId(int idPlan)
+        {
+            var trainingAim = _context.TrainingPlans.Where(tp => tp.Id == idPlan).Select(tp => tp.IdAimOfTraining).FirstOrDefault();
+            return trainingAim;
+        }
+
+        public int GetLastTrainingIdInPlan(int idPlan)
+        {
+            var lastTrainingId = _context.Trainings.Where(t => t.IdTrainingPlan == idPlan).
+                OrderByDescending(t => t.Date).
+                Select(t => t.Id).
+                FirstOrDefault();
+            return lastTrainingId;
+        }
+
+        public int GetTrainingTypeId(int idPlan)
+        {
+            var trainingTypeId = _context.TrainingPlans.Where(tp => tp.Id == idPlan).
+                Select(tp => tp.IdTrainingType).
+                FirstOrDefault();
+            return trainingTypeId;
+        }
     }
 }

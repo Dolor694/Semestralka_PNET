@@ -14,16 +14,44 @@ namespace Gym.Business.Services
     {
         protected readonly ITrainingRepository _trainingRepository;
         protected readonly ITrainingGenerator _trainingGenerator;
+        protected readonly INextTrainingTypeSequenceResolver _nextTrainingTypeSequenceResolver;
 
-        public TrainingService(ITrainingRepository trainingRepository, ITrainingGenerator trainingGenerator)
+        public TrainingService(ITrainingRepository trainingRepository, ITrainingGenerator trainingGenerator,
+                              INextTrainingTypeSequenceResolver nextTrainingTypeSequenceResolver)
         {
             _trainingRepository = trainingRepository;
             _trainingGenerator = trainingGenerator;
+            _nextTrainingTypeSequenceResolver = nextTrainingTypeSequenceResolver;
         }
 
-        public Training CreateTraining()
+        public Training CreateTraining(int idPlan)
         {
-            return _trainingGenerator.GenerateTraining();
+            int idNextTraining = _trainingRepository.GetLastTrainingIdInPlan(idPlan) + 1;
+
+            int aimOfTraining = _trainingRepository.GetTrainingAimOfPlanId(idPlan);
+
+            int trainingType = _trainingRepository.GetTrainingTypeId(idPlan);
+
+            // Generate exercises for the training (persists ExerciseInTraining records)
+            _trainingGenerator.GenerateTraining(aimOfTraining, idPlan, trainingType, idNextTraining);
+
+            // Resolve the next training type sequence entry in the cycle
+            int idNextTrainingTypeSequence = _nextTrainingTypeSequenceResolver
+                .GetNextTrainingTypeSequenceId(idPlan, trainingType);
+
+            DateOnly dateOfCreation = DateOnly.FromDateTime(DateTime.Now);
+
+            Training training = new Training
+            {
+                Id = idNextTraining,
+                Date = dateOfCreation,
+                IdTrainingPlan = idPlan,
+                IdTrainingTypeSequence = idNextTrainingTypeSequence
+            };
+
+            _trainingRepository.Add(training);
+
+            return training;
         }
 
         public TrainingDTO? GetTrainingById(int id)

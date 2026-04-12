@@ -12,8 +12,10 @@ namespace Gym.Business.Interfaces
         /*
          * This method creates a new training.
          * 
+         * @param idPlan The ID of the training plan to which the new training will be associated.
+         * @return A Training object representing the newly created training, including its unique identifier and associated information.
          */
-        Training CreateTraining();
+        Training CreateTraining(int idPlan);
 
         /*
          * This method retrieves a training by its unique identifier.
