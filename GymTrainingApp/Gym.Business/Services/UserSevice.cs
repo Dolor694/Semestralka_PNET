@@ -148,6 +148,34 @@ namespace Gym.Business.Services
             return BCrypt.Net.BCrypt.Verify(password, user.Password);
         }
 
+
+        public UserDTO? LoginUser(string username, string password)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentException("Username cannot be null or empty.", nameof(username));
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentException("Password cannot be null or empty.", nameof(password));
+            }
+
+            User? user = _userRepository.GetByUsername(username);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (ValidatePassword(username, password))
+            {
+                return MapToUserDTO(user);
+            }
+
+            return null;
+        }
+
         /*
          * This method hashes a plain text password using the BCrypt algorithm.
          * 

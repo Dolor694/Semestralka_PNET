@@ -3,6 +3,50 @@
   "WorkspaceRootPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\traininggenerator\\traininggenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\traininggenerator\\traininggenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\aopstrategies\\aopbuildmuscle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\aopstrategies\\aopbuildmuscle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\aopstrategies\\aopbuildstrength.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\aopstrategies\\aopbuildstrength.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\aopstrategies\\aoploseweight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\aopstrategies\\aoploseweight.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\aopstrategies\\iaimofplanstrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\aopstrategies\\iaimofplanstrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\traininggenerator\\exercisemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\traininggenerator\\exercisemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\traininggenerator\\iexercisemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\traininggenerator\\iexercisemapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\traininggenerator\\iexerciseselector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\traininggenerator\\iexerciseselector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\traininggenerator\\iexercisegetter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\traininggenerator\\iexercisegetter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\traininggenerator\\nextmusclegroupresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\traininggenerator\\nextmusclegroupresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.business\\traininggenerator\\itraininggenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4B0564-9412-49EA-B947-1234BAA1A520}|Gym.Business\\Gym.Business.csproj|solutionrelative:gym.business\\traininggenerator\\itraininggenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.models\\interfaces\\itrainingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4C80ADB7-94E6-43D5-9574-94D80C938295}|Gym.Models\\Gym.Models.csproj|solutionrelative:gym.models\\interfaces\\itrainingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -18,8 +62,152 @@
       "DocumentGroups": [
         {
           "DockedWidth": 86,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TrainingGenerator.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\TrainingGenerator.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\TrainingGenerator\\TrainingGenerator.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\TrainingGenerator.cs",
+              "RelativeToolTip": "Gym.Business\\TrainingGenerator\\TrainingGenerator.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAYwDUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T09:52:15.698Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AOPBuildMuscle.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\AOPBuildMuscle.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\AOPStrategies\\AOPBuildMuscle.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\AOPBuildMuscle.cs",
+              "RelativeToolTip": "Gym.Business\\AOPStrategies\\AOPBuildMuscle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T10:18:07.087Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AOPBuildStrength.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\AOPBuildStrength.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\AOPStrategies\\AOPBuildStrength.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\AOPBuildStrength.cs",
+              "RelativeToolTip": "Gym.Business\\AOPStrategies\\AOPBuildStrength.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T10:18:02.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AOPLoseWeight.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\AOPLoseWeight.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\AOPStrategies\\AOPLoseWeight.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\AOPLoseWeight.cs",
+              "RelativeToolTip": "Gym.Business\\AOPStrategies\\AOPLoseWeight.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T10:17:54.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IAimOfPlanStrategy.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\IAimOfPlanStrategy.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\AOPStrategies\\IAimOfPlanStrategy.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\AOPStrategies\\IAimOfPlanStrategy.cs",
+              "RelativeToolTip": "Gym.Business\\AOPStrategies\\IAimOfPlanStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABrAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T10:17:37.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ExerciseMapper.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\ExerciseMapper.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\TrainingGenerator\\ExerciseMapper.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\ExerciseMapper.cs",
+              "RelativeToolTip": "Gym.Business\\TrainingGenerator\\ExerciseMapper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T10:15:13.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IExerciseMapper.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\IExerciseMapper.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\TrainingGenerator\\IExerciseMapper.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\IExerciseMapper.cs",
+              "RelativeToolTip": "Gym.Business\\TrainingGenerator\\IExerciseMapper.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAmwBUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T10:14:50.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IExerciseSelector.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\IExerciseSelector.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\TrainingGenerator\\IExerciseSelector.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\IExerciseSelector.cs",
+              "RelativeToolTip": "Gym.Business\\TrainingGenerator\\IExerciseSelector.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAswBEAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T10:09:10.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "NextMuscleGroupResolver.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\NextMuscleGroupResolver.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\TrainingGenerator\\NextMuscleGroupResolver.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\NextMuscleGroupResolver.cs",
+              "RelativeToolTip": "Gym.Business\\TrainingGenerator\\NextMuscleGroupResolver.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAIwBYAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T09:57:10.513Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IExerciseGetter.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\IExerciseGetter.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\TrainingGenerator\\IExerciseGetter.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\IExerciseGetter.cs",
+              "RelativeToolTip": "Gym.Business\\TrainingGenerator\\IExerciseGetter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T09:55:28.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ITrainingGenerator.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\ITrainingGenerator.cs",
+              "RelativeDocumentMoniker": "Gym.Business\\TrainingGenerator\\ITrainingGenerator.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Business\\TrainingGenerator\\ITrainingGenerator.cs",
+              "RelativeToolTip": "Gym.Business\\TrainingGenerator\\ITrainingGenerator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T09:53:11.773Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -30,26 +218,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 11,
               "Title": "ITrainingRepository.cs",
               "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Interfaces\\ITrainingRepository.cs",
               "RelativeDocumentMoniker": "Gym.Models\\Interfaces\\ITrainingRepository.cs",
               "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Interfaces\\ITrainingRepository.cs",
               "RelativeToolTip": "Gym.Models\\Interfaces\\ITrainingRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAkwCEAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-10T09:55:49.848Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 12,
               "Title": "DatabaseTrainingRepo.cs",
               "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Database\\DatabaseTrainingRepo.cs",
               "RelativeDocumentMoniker": "Gym.Models\\Database\\DatabaseTrainingRepo.cs",
               "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Models\\Database\\DatabaseTrainingRepo.cs",
               "RelativeToolTip": "Gym.Models\\Database\\DatabaseTrainingRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAADMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-10T09:53:57.544Z",
               "EditorCaption": ""

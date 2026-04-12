@@ -71,5 +71,14 @@ namespace Gym.Business.Interfaces
          * @return A boolean value indicating whether the user was successfully deleted (true) or not found (false).
          */
         bool DeleteUser(int id);
+
+        /*
+         * This method logs in an user who is already registered.
+         * 
+         * @param username The username of the user.
+         * @param password The password of the user
+         * @return An UserDTO representing the user.
+         */
+        UserDTO? LoginUser(string username, string password);
     }
 }
