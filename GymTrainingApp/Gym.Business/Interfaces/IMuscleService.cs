@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Interfaces
 {
-    internal interface IMuscleService
+    public interface IMuscleService
     {
         /*
          * This method creates a new muscle.

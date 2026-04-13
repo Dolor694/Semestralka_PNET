@@ -127,27 +127,6 @@ namespace Gym.Business.Services
             return user;
         }
 
-        public bool ValidatePassword(string username, string password)
-        {
-            if (string.IsNullOrEmpty(username))
-            {
-                throw new ArgumentException("Username cannot be null or empty.", nameof(username));
-            }
-
-            if (string.IsNullOrEmpty(password)) {
-                throw new ArgumentException("Password cannot be null or empty.", nameof(password));
-            }
-
-            User? user = _userRepository.GetByUsername(username);
-
-            if (user == null)
-            {
-                throw new Exception($"User with username '{username}' not found.");
-            }
-
-            return BCrypt.Net.BCrypt.Verify(password, user.Password);
-        }
-
 
         public UserDTO? LoginUser(string username, string password)
         {
@@ -168,7 +147,7 @@ namespace Gym.Business.Services
                 return null;
             }
 
-            if (ValidatePassword(username, password))
+            if (BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 return MapToUserDTO(user);
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Interfaces
 {
-    internal interface ITrainingTypeService
+    public interface ITrainingTypeService
     {
         /*
          * This method creates a new training type.

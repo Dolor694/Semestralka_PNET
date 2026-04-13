@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Interfaces
 {
-    internal interface IUserService
+    public interface IUserService
     {
         /*
          * This method retrieves a user by their unique identifier.
@@ -62,14 +62,8 @@ namespace Gym.Business.Interfaces
          * @param password The password to be validated against the stored hashed password.
          * @return A boolean value indicating whether the provided password is valid (true) or not (false).
          */
-        bool ValidatePassword(string username, string password);
+     
 
-        /*
-         * This method deletes a user by their unique identifier.
-         * 
-         * @param id The unique identifier of the user to be deleted.
-         * @return A boolean value indicating whether the user was successfully deleted (true) or not found (false).
-         */
         bool DeleteUser(int id);
 
         /*

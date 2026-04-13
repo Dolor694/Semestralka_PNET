@@ -11,7 +11,7 @@ namespace Gym.Business.Interfaces
      * This interface defines the contract for the AimOfPlan service, 
      * which is responsible for managing AimOfPlan entities in the application.
      */
-    internal interface IAimOfPlanService
+    public interface IAimOfPlanService
     {
         /*
          * This method creates a new aim of plan.

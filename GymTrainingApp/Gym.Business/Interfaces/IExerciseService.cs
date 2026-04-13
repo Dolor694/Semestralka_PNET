@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Interfaces
 {
-    internal interface IExerciseService
+    public interface IExerciseService
     {
         /*
          * This method creates a new exercise.

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Interfaces
 {
-    internal interface IMuscleGroupService
+    public interface IMuscleGroupService
     {
         /*
          * This method creates a new muscle group.

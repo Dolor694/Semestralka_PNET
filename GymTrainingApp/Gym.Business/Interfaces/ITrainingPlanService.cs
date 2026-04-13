@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Interfaces
 {
-    internal interface ITrainingPlanService
+    public interface ITrainingPlanService
     {
         /*
          * This method creates a new training plan.
