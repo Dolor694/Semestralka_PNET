@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _trainingPlanRepository = trainingPlanRepository;
         }
 
-        public TrainingPlan CreateTrainingPlan(int id, string planName, int trainingFrequency, int idUser, int idTrainingType, int idAimOfTraining)
+        public TrainingPlan CreateTrainingPlan(string planName, int trainingFrequency, int idUser, int idTrainingType, int idAimOfTraining)
         {
             TrainingPlan newTrainingPlan = new TrainingPlan
             {
-                Id = id,
                 DateOfCreation = DateOnly.FromDateTime(DateTime.Now),
                 PlanName = planName,
                 TrainingFrequency = trainingFrequency,
@@ -100,12 +99,18 @@ namespace Gym.Business.Services
             return true;
         }
 
-        /*
-         * This method maps a TrainingPlan entity to a TrainingPlanDTO object.
-         * 
-         * @param trainingPlan The TrainingPlan entity to be mapped.
-         * @return A TrainingPlanDTO object containing the mapped information from the TrainingPlan entity.
-         */
+        public List<TrainingPlanDTO> GetPlansByUserId(int idUser)
+        {
+            if (idUser <= 0)
+            {
+                throw new ArgumentException("Id must be a positive integer.", nameof(idUser));
+            }
+
+            List<TrainingPlan> plans = _trainingPlanRepository.GetPlansByUserId(idUser);
+
+            return plans.Select(MapToTrainingPlanDTO).ToList();
+        }
+
         private TrainingPlanDTO MapToTrainingPlanDTO(TrainingPlan trainingPlan)
         {
             return new TrainingPlanDTO(

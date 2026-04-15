@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _exerciseRepository = exerciseRepository;
         }
 
-        public Exercise CreateExercise(int id, string name, bool complex, int idMuscle)
+        public Exercise CreateExercise(string name, bool complex, int idMuscle)
         {
             Exercise newExercise = new Exercise
             {
-                Id = id,
                 Name = name,
                 Complex = complex,
                 IdMuscle = idMuscle
@@ -48,6 +47,18 @@ namespace Gym.Business.Services
             }
 
             return MapToExerciseDTO(exercise);
+        }
+
+        public List<ExerciseDTO> GetExercisesByMuscleGroup(int idMuscleGroup)
+        {
+            if (idMuscleGroup <= 0)
+            {
+                throw new ArgumentException("Id must be a positive integer.", nameof(idMuscleGroup));
+            }
+
+            return _exerciseRepository.GetExercisesByMuscleGroup(idMuscleGroup)
+                .Select(MapToExerciseDTO)
+                .ToList();
         }
 
         public ExerciseDTO UpdateExercise(int id, string? name, bool? complex, int? idMuscle)
@@ -92,12 +103,6 @@ namespace Gym.Business.Services
             return true;
         }
 
-        /*
-         * This method maps an Exercise entity to an ExerciseDTO object.
-         * 
-         * @param exercise The Exercise entity to be mapped.
-         * @return An ExerciseDTO object containing the mapped information from the Exercise entity.
-         */
         private ExerciseDTO MapToExerciseDTO(Exercise exercise)
         {
             return new ExerciseDTO(exercise.Id, exercise.Name, exercise.Complex, exercise.IdMuscle);

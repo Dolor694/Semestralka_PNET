@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _muscleRepository = muscleRepository;
         }
 
-        public Muscle CreateMuscle(int id, string name, int idMuscleGroup)
+        public Muscle CreateMuscle(string name, int idMuscleGroup)
         {
             Muscle newMuscle = new Muscle
             {
-                Id = id,
                 Name = name,
                 IdMuscleGroup = idMuscleGroup
             };
@@ -86,12 +85,6 @@ namespace Gym.Business.Services
             return true;
         }
 
-        /*
-         * This method maps a Muscle entity to a MuscleDTO object.
-         * 
-         * @param muscle The Muscle entity to be mapped.
-         * @return A MuscleDTO object containing the mapped information from the Muscle entity.
-         */
         private MuscleDTO MapToMuscleDTO(Muscle muscle)
         {
             return new MuscleDTO(muscle.Id, muscle.Name, muscle.IdMuscleGroup);

@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _muscleGroupRepository = muscleGroupRepository;
         }
 
-        public MuscleGroup CreateMuscleGroup(int id, string name)
+        public MuscleGroup CreateMuscleGroup(string name)
         {
             MuscleGroup newMuscleGroup = new MuscleGroup
             {
-                Id = id,
                 Name = name
             };
 
@@ -46,6 +45,13 @@ namespace Gym.Business.Services
             }
 
             return MapToMuscleGroupDTO(muscleGroup);
+        }
+
+        public List<MuscleGroupDTO> GetAllMuscleGroups()
+        {
+            return _muscleGroupRepository.GetAll()
+                .Select(MapToMuscleGroupDTO)
+                .ToList();
         }
 
         public MuscleGroupDTO UpdateMuscleGroup(int id, string? name)
@@ -80,12 +86,6 @@ namespace Gym.Business.Services
             return true;
         }
 
-        /*
-         * This method maps a MuscleGroup entity to a MuscleGroupDTO object.
-         * 
-         * @param muscleGroup The MuscleGroup entity to be mapped.
-         * @return A MuscleGroupDTO object containing the mapped information from the MuscleGroup entity.
-         */
         private MuscleGroupDTO MapToMuscleGroupDTO(MuscleGroup muscleGroup)
         {
             return new MuscleGroupDTO(muscleGroup.Id, muscleGroup.Name);

@@ -10,20 +10,19 @@ using System.Threading.Tasks;
 
 namespace Gym.Business.Services
 {
-    public class UserSevice : IUserService
+    public class UserService : IUserService
     {
         protected readonly IUserRepository _userRepository;
 
-        public UserSevice(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public User CreateUser(int id, string username, string password, double weight)
+        public User CreateUser(string username, string password, double weight)
         {
             User newUser = new User
             {
-                Id = id,
                 Username = username,
                 Password = HashPassword(password),
                 Weight = weight
@@ -49,7 +48,6 @@ namespace Gym.Business.Services
 
         public UserDTO? GetUserById(int id)
         {
-
             if (id <= 0)
             {
                 throw new ArgumentException("Id must be a positive integer.", nameof(id));
@@ -127,7 +125,6 @@ namespace Gym.Business.Services
             return user;
         }
 
-
         public UserDTO? LoginUser(string username, string password)
         {
             if (string.IsNullOrEmpty(username))
@@ -155,23 +152,11 @@ namespace Gym.Business.Services
             return null;
         }
 
-        /*
-         * This method hashes a plain text password using the BCrypt algorithm.
-         * 
-         * @param password The plain text password to be hashed.
-         * @return The hashed password as a string.
-         */
         private string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
-        /*
-         * This method maps a User entity to a UserDTO object.
-         * 
-         * @param user The User entity to be mapped.
-         * @return A UserDTO object containing the mapped information from the User entity.
-         */
         private UserDTO MapToUserDTO(User user)
         {
             return new UserDTO(user.Id, user.Username, user.Weight);

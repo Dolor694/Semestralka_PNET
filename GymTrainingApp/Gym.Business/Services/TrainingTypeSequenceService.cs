@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _trainingTypeSequenceRepository = trainingTypeSequenceRepository;
         }
 
-        public TrainingTypeSequence CreateTrainingTypeSequence(int id, int orderInCycle, int idTrainingType, int idMuscleGroup)
+        public TrainingTypeSequence CreateTrainingTypeSequence(int orderInCycle, int idTrainingType, int idMuscleGroup)
         {
             TrainingTypeSequence newTrainingTypeSequence = new TrainingTypeSequence
             {
-                Id = id,
                 OrderInCycle = orderInCycle,
                 IdTrainingType = idTrainingType,
                 IdMuscleGroup = idMuscleGroup
@@ -45,43 +44,43 @@ namespace Gym.Business.Services
 
         public TrainingTypeSequence UpdateTrainingTypeSequence(int id, int? orderInCycle, int? idTrainingType, int? idMuscleGroup)
         {
-            TrainingTypeSequence? trainingTypeSequence = _trainingTypeSequenceRepository.GetById(id);
+            TrainingTypeSequence? sequence = _trainingTypeSequenceRepository.GetById(id);
 
-            if (trainingTypeSequence == null)
+            if (sequence == null)
             {
                 throw new Exception($"TrainingTypeSequence with id '{id}' not found.");
             }
 
             if (orderInCycle.HasValue)
             {
-                trainingTypeSequence.OrderInCycle = orderInCycle.Value;
+                sequence.OrderInCycle = orderInCycle.Value;
             }
 
             if (idTrainingType.HasValue)
             {
-                trainingTypeSequence.IdTrainingType = idTrainingType.Value;
+                sequence.IdTrainingType = idTrainingType.Value;
             }
 
             if (idMuscleGroup.HasValue)
             {
-                trainingTypeSequence.IdMuscleGroup = idMuscleGroup.Value;
+                sequence.IdMuscleGroup = idMuscleGroup.Value;
             }
 
-            _trainingTypeSequenceRepository.Update(trainingTypeSequence);
+            _trainingTypeSequenceRepository.Update(sequence);
 
-            return trainingTypeSequence;
+            return sequence;
         }
 
         public bool DeleteTrainingTypeSequence(int id)
         {
-            TrainingTypeSequence? trainingTypeSequence = _trainingTypeSequenceRepository.GetById(id);
+            TrainingTypeSequence? sequence = _trainingTypeSequenceRepository.GetById(id);
 
-            if (trainingTypeSequence == null)
+            if (sequence == null)
             {
                 return false;
             }
 
-            _trainingTypeSequenceRepository.Delete(trainingTypeSequence);
+            _trainingTypeSequenceRepository.Delete(sequence);
             return true;
         }
     }

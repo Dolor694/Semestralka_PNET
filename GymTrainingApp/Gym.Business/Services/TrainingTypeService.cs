@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _trainingTypeRepository = trainingTypeRepository;
         }
 
-        public TrainingType CreateTrainingType(int id, string name)
+        public TrainingType CreateTrainingType(string name)
         {
             TrainingType newTrainingType = new TrainingType
             {
-                Id = id,
                 Name = name
             };
 
@@ -46,6 +45,13 @@ namespace Gym.Business.Services
             }
 
             return MapToTrainingTypeDTO(trainingType);
+        }
+
+        public List<TrainingTypeDTO> GetAllTrainingTypes()
+        {
+            return _trainingTypeRepository.GetAll()
+                .Select(MapToTrainingTypeDTO)
+                .ToList();
         }
 
         public TrainingTypeDTO UpdateTrainingType(int id, string? name)
@@ -80,12 +86,6 @@ namespace Gym.Business.Services
             return true;
         }
 
-        /*
-         * This method maps a TrainingType entity to a TrainingTypeDTO object.
-         * 
-         * @param trainingType The TrainingType entity to be mapped.
-         * @return A TrainingTypeDTO object containing the mapped information from the TrainingType entity.
-         */
         private TrainingTypeDTO MapToTrainingTypeDTO(TrainingType trainingType)
         {
             return new TrainingTypeDTO(trainingType.Id, trainingType.Name);

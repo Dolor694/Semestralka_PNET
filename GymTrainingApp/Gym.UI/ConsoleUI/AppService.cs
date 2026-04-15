@@ -57,7 +57,7 @@ namespace Gym.UI.ConsoleUI
             TrainingPlanService = new TrainingPlanService(trainingPlanRepo);
             TrainingTypeSequenceService = new TrainingTypeSequenceService(trainingTypeSequenceRepo);
             TrainingTypeService = new TrainingTypeService(trainingTypeRepo);
-            UserService = new UserSevice(userRepo);
+            UserService = new UserService(userRepo);
 
             // 4. Create TrainingGenerator components
             var aimOfPlanFactory = new AimOfPlanFactory();

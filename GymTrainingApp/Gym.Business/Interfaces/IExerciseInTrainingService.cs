@@ -12,7 +12,6 @@ namespace Gym.Business.Interfaces
         /*
          * This method creates a new exercise in training.
          * 
-         * @param id The unique identifier for the exercise in training.
          * @param sets The number of sets.
          * @param reps The number of repetitions.
          * @param order The order of the exercise in the training.
@@ -20,7 +19,7 @@ namespace Gym.Business.Interfaces
          * @param idTraining The identifier of the training.
          * @return The created exercise in training object.
          */
-        ExerciseInTraining CreateExerciseInTraining(int id, int sets, int reps, int order, int idExercise, int idTraining);
+        ExerciseInTraining CreateExerciseInTraining(int sets, int reps, int order, int idExercise, int idTraining);
 
         /*
          * This method retrieves an exercise in training by its unique identifier.
@@ -29,6 +28,14 @@ namespace Gym.Business.Interfaces
          * @return An ExerciseInTrainingDTO object containing the information if found, or null if it does not exist.
          */
         ExerciseInTrainingDTO? GetExerciseInTrainingById(int id);
+
+        /*
+         * This method retrieves all exercises associated with a specific training.
+         * 
+         * @param idTraining The ID of the training for which to retrieve the exercises.
+         * @return A list of ExerciseInTrainingDTO objects for the specified training.
+         */
+        List<ExerciseInTrainingDTO> GetExercisesByTrainingId(int idTraining);
 
         /*
          * This method updates the information of an existing exercise in training.
@@ -50,7 +57,7 @@ namespace Gym.Business.Interfaces
         bool DeleteExerciseInTraining(int id);
 
         /*
-         * This method adds an exercise to a reportory of exercises in training.
+         * This method adds an exercise to a repository of exercises in training.
          * 
          * @param exerciseInTraining The exercise in training object to be added.
          * @return The added exercise in training object.

@@ -14,5 +14,13 @@ namespace Gym.Models.Database
         public DatabaseExerciseInTrainingRepo(GymDbContext context) : base(context)
         {
         }
+
+        public List<ExerciseInTraining> GetByTrainingId(int idTraining)
+        {
+            return _context.ExercisesInTraining
+                .Where(e => e.IdTraining == idTraining)
+                .OrderBy(e => e.Order)
+                .ToList();
+        }
     }
 }

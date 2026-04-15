@@ -33,15 +33,6 @@ namespace Gym.Models.Database
             return trainingAim;
         }
 
-        public int GetLastTrainingIdInPlan(int idPlan)
-        {
-            var lastTrainingId = _context.Trainings.Where(t => t.IdTrainingPlan == idPlan).
-                OrderByDescending(t => t.Date).
-                Select(t => t.Id).
-                FirstOrDefault();
-            return lastTrainingId;
-        }
-
         public int GetTrainingTypeId(int idPlan)
         {
             var trainingTypeId = _context.TrainingPlans.Where(tp => tp.Id == idPlan).

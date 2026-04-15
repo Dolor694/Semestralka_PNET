@@ -12,7 +12,6 @@ namespace Gym.Business.Interfaces
         /*
          * This method creates a new training plan.
          * 
-         * @param id The unique identifier for the training plan.
          * @param planName The name of the training plan.
          * @param trainingFrequency The frequency of training per week.
          * @param idUser The identifier of the user who owns the plan.
@@ -20,7 +19,7 @@ namespace Gym.Business.Interfaces
          * @param idAimOfTraining The identifier of the aim of the training.
          * @return The created training plan object.
          */
-        TrainingPlan CreateTrainingPlan(int id, string planName, int trainingFrequency, int idUser, int idTrainingType, int idAimOfTraining);
+        TrainingPlan CreateTrainingPlan(string planName, int trainingFrequency, int idUser, int idTrainingType, int idAimOfTraining);
 
         /*
          * This method retrieves a training plan by its unique identifier.
@@ -49,5 +48,13 @@ namespace Gym.Business.Interfaces
          * @return A boolean value indicating whether the training plan was successfully deleted (true) or not found (false).
          */
         bool DeleteTrainingPlan(int id);
+
+        /*
+         * This method retrieves all training plans associated with a specific user.
+         * 
+         * @param idUser The unique identifier of the user whose training plans are to be retrieved.
+         * @return A list of TrainingPlanDTO objects associated with the specified user.
+         */
+        List<TrainingPlanDTO> GetPlansByUserId(int idUser);
     }
 }

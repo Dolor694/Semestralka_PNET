@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _exerciseInTrainingRepository = exerciseInTrainingRepository;
         }
 
-        public ExerciseInTraining CreateExerciseInTraining(int id, int sets, int reps, int order, int idExercise, int idTraining)
+        public ExerciseInTraining CreateExerciseInTraining(int sets, int reps, int order, int idExercise, int idTraining)
         {
             ExerciseInTraining newExerciseInTraining = new ExerciseInTraining
             {
-                Id = id,
                 Sets = sets,
                 Reps = reps,
                 Order = order,
@@ -50,6 +49,18 @@ namespace Gym.Business.Services
             }
 
             return MapToExerciseInTrainingDTO(exerciseInTraining);
+        }
+
+        public List<ExerciseInTrainingDTO> GetExercisesByTrainingId(int idTraining)
+        {
+            if (idTraining <= 0)
+            {
+                throw new ArgumentException("Id must be a positive integer.", nameof(idTraining));
+            }
+
+            List<ExerciseInTraining> exercises = _exerciseInTrainingRepository.GetByTrainingId(idTraining);
+
+            return exercises.Select(MapToExerciseInTrainingDTO).ToList();
         }
 
         public ExerciseInTrainingDTO UpdateExerciseInTraining(int id, int? sets, int? reps, int? order)
@@ -94,7 +105,6 @@ namespace Gym.Business.Services
             return true;
         }
 
-       
         public ExerciseInTraining AddExerciseInTraining(ExerciseInTraining exerciseInTraining)
         {
             if (exerciseInTraining == null)
@@ -106,12 +116,6 @@ namespace Gym.Business.Services
             return exerciseInTraining;
         }
 
-        /*
-         * This method maps an ExerciseInTraining entity to an ExerciseInTrainingDTO object.
-         * 
-         * @param exerciseInTraining The ExerciseInTraining entity to be mapped.
-         * @return An ExerciseInTrainingDTO object containing the mapped information.
-         */
         private ExerciseInTrainingDTO MapToExerciseInTrainingDTO(ExerciseInTraining exerciseInTraining)
         {
             return new ExerciseInTrainingDTO(

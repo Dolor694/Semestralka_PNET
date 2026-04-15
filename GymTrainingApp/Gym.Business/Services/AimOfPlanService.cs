@@ -18,11 +18,10 @@ namespace Gym.Business.Services
             _aimOfPlanRepository = aimOfPlanRepository;
         }
 
-        public AimOfPlan CreateAimOfPlan(int id, string description)
+        public AimOfPlan CreateAimOfPlan(string description)
         {
             AimOfPlan newAimOfPlan = new AimOfPlan
             {
-                Id = id,
                 Description = description
             };
 
@@ -46,6 +45,13 @@ namespace Gym.Business.Services
             }
 
             return MapToAimOfPlanDTO(aimOfPlan);
+        }
+
+        public List<AimOfPlanDTO> GetAllAimsOfPlan()
+        {
+            return _aimOfPlanRepository.GetAll()
+                .Select(MapToAimOfPlanDTO)
+                .ToList();
         }
 
         public AimOfPlanDTO UpdateAimOfPlan(int id, string? description)
@@ -80,12 +86,6 @@ namespace Gym.Business.Services
             return true;
         }
 
-        /*
-         * This method maps an AimOfPlan entity to an AimOfPlanDTO object.
-         * 
-         * @param aimOfPlan The AimOfPlan entity to be mapped.
-         * @return An AimOfPlanDTO object containing the mapped information from the AimOfPlan entity.
-         */
         private AimOfPlanDTO MapToAimOfPlanDTO(AimOfPlan aimOfPlan)
         {
             return new AimOfPlanDTO(aimOfPlan.Id, aimOfPlan.Description);

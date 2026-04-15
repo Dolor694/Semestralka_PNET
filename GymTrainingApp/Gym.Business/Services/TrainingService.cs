@@ -26,30 +26,25 @@ namespace Gym.Business.Services
 
         public Training CreateTraining(int idPlan)
         {
-            int idNextTraining = _trainingRepository.GetLastTrainingIdInPlan(idPlan) + 1;
-
             int aimOfTraining = _trainingRepository.GetTrainingAimOfPlanId(idPlan);
-
             int trainingType = _trainingRepository.GetTrainingTypeId(idPlan);
-
-            // Generate exercises for the training (persists ExerciseInTraining records)
-            _trainingGenerator.GenerateTraining(aimOfTraining, idPlan, trainingType, idNextTraining);
 
             // Resolve the next training type sequence entry in the cycle
             int idNextTrainingTypeSequence = _nextTrainingTypeSequenceResolver
                 .GetNextTrainingTypeSequenceId(idPlan, trainingType);
 
-            DateOnly dateOfCreation = DateOnly.FromDateTime(DateTime.Now);
-
+            // Create the Training first — SQLite auto-generates the Id
             Training training = new Training
             {
-                Id = idNextTraining,
-                Date = dateOfCreation,
+                Date = DateOnly.FromDateTime(DateTime.Now),
                 IdTrainingPlan = idPlan,
                 IdTrainingTypeSequence = idNextTrainingTypeSequence
             };
 
             _trainingRepository.Add(training);
+
+            // Generate exercises using the DB-assigned training Id
+            _trainingGenerator.GenerateTraining(aimOfTraining, idPlan, trainingType, training.Id);
 
             return training;
         }
@@ -125,18 +120,12 @@ namespace Gym.Business.Services
             {
                 throw new ArgumentException("Id must be a positive integer.", nameof(idPlan));
             }
-            
+
             IEnumerable<Training> trainings = _trainingRepository.GetTrainingsByPlan(idPlan);
 
             return trainings.OrderByDescending(t => t.Date).FirstOrDefault();
         }
 
-        /*
-         * This method maps a Training entity to a TrainingDTO object.
-         * 
-         * @param training The Training entity to be mapped.
-         * @return A TrainingDTO object containing the mapped information from the Training entity.
-         */
         private TrainingDTO MapToTrainingDTO(Training training)
         {
             return new TrainingDTO(

@@ -12,13 +12,12 @@ namespace Gym.Business.Interfaces
         /*
          * This method creates a new exercise.
          * 
-         * @param id The unique identifier for the exercise.
          * @param name The name of the exercise.
          * @param complex Whether the exercise is a compound exercise.
          * @param idMuscle The identifier of the muscle targeted by the exercise.
          * @return The created exercise object.
          */
-        Exercise CreateExercise(int id, string name, bool complex, int idMuscle);
+        Exercise CreateExercise(string name, bool complex, int idMuscle);
 
         /*
          * This method retrieves an exercise by its unique identifier.
@@ -27,6 +26,14 @@ namespace Gym.Business.Interfaces
          * @return An ExerciseDTO object containing the exercise's information if found, or null if the exercise does not exist.
          */
         ExerciseDTO? GetExerciseById(int id);
+
+        /*
+         * This method retrieves all exercises that target a specific muscle group.
+         * 
+         * @param idMuscleGroup The ID of the muscle group.
+         * @return A list of ExerciseDTO objects for the specified muscle group.
+         */
+        List<ExerciseDTO> GetExercisesByMuscleGroup(int idMuscleGroup);
 
         /*
          * This method updates the information of an existing exercise.

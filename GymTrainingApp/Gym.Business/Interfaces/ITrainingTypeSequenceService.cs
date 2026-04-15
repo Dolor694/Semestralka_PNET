@@ -12,13 +12,12 @@ namespace Gym.Business.Interfaces
         /*
          * This method creates a new training type sequence.
          * 
-         * @param id The unique identifier for the training type sequence.
          * @param orderInCycle The order of this sequence in the training cycle.
          * @param idTrainingType The identifier of the training type.
          * @param idMuscleGroup The identifier of the muscle group.
          * @return The created training type sequence object.
          */
-        TrainingTypeSequence CreateTrainingTypeSequence(int id, int orderInCycle, int idTrainingType, int idMuscleGroup);
+        TrainingTypeSequence CreateTrainingTypeSequence(int orderInCycle, int idTrainingType, int idMuscleGroup);
 
         /*
          * This method retrieves a training type sequence by its unique identifier.

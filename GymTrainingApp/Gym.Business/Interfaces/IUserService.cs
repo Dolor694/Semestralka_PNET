@@ -36,13 +36,12 @@ namespace Gym.Business.Interfaces
         /*
          * This method creates a new user.
          * 
-         * @param id The unique identifier for the user.
          * @param username The username of the user.
          * @param password The password of the user.
          * @param weight The weight of the user.
          * @return The created user object.
         */
-        User CreateUser(int id, string username, string password, double weight);
+        User CreateUser(string username, string password, double weight);
 
         /*
          * This method updates the information of an existing user.

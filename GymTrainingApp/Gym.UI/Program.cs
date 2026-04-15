@@ -6,14 +6,34 @@
  */
 
 
-
 /*
  * Main entry point for the Gym application.
  */
+using Gym.UI.ConsoleUI;
+using Gym.UI.ConsoleUI.PageFactory;
+using Gym.UI.ConsoleUI.Interfaces;
+
 public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        // Default/empty values for the logged in user at the start of the application
+        LoggedInUser.Id = -1;
+        LoggedInUser.Username = string.Empty; 
+        LoggedInUser.Weight = 0.0;
+
+        // Set the initial page to the register/login page
+        CurrentPage.PageId = 0;
+
+        AppService appService = new AppService();
+        PageFactory pageFactory = new PageFactory();
+
+        IPage currentPage = pageFactory.CreatePage(CurrentPage.PageId, appService);
+        
+        while (true)
+        {
+            currentPage.ShowPage();
+            currentPage = pageFactory.CreatePage(CurrentPage.PageId, appService);
+        }
     }
 }

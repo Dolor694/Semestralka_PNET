@@ -14,5 +14,12 @@ namespace Gym.Models.Database
         public DatabaseTrainingPlanRepo(GymDbContext context) : base(context)
         {
         }
+
+        public List<TrainingPlan> GetPlansByUserId(int idUser)
+        {
+            return _context.TrainingPlans
+                .Where(tp => tp.IdUser == idUser)
+                .ToList();
+        }
     }
 }
