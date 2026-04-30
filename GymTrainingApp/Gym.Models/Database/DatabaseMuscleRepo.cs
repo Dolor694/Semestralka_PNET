@@ -1,11 +1,6 @@
 ﻿using Gym.Models.Entities;
 using Gym.Models.Interfaces;
 using Gym.Models.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gym.Models.Database
 {
@@ -17,8 +12,11 @@ namespace Gym.Models.Database
 
         public IEnumerable<Muscle> GetMusclesByGroup(int idMuscleGroup)
         {
-            return _context.Muscles
-                .Where(e => e.IdMuscleGroup == idMuscleGroup) .ToList();
+            return _context.MuscleGroupMuscles
+                .Where(mgm => mgm.IdMuscleGroup == idMuscleGroup)
+                .Select(mgm => mgm.Muscle)
+                .Distinct()
+                .ToList();
         }
     }
 }

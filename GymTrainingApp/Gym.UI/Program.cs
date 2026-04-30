@@ -1,5 +1,6 @@
 ﻿/*
- * Gym - A simple application for managing gym trainings and plans for users and allows to automaticaly generate training plans.
+ * Gym - A simple application for managing gym trainings and plans 
+ * for users and allows to automaticaly generate training plans.
  * 
  * @author: Lukáš Proisl
  * @date: 2026-04

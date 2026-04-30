@@ -2,11 +2,6 @@
 using Gym.Models.Entities;
 using Gym.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gym.Models.Database
 {
@@ -20,7 +15,8 @@ namespace Gym.Models.Database
         {
             return _context.Exercises
                 .Include(e => e.Muscle)
-                .Where(e => e.Muscle.IdMuscleGroup == idMuscleGroup)
+                .ThenInclude(m => m.MuscleGroupMuscles)
+                .Where(e => e.Muscle.MuscleGroupMuscles.Any(mgm => mgm.IdMuscleGroup == idMuscleGroup))
                 .ToList();
         }
     }

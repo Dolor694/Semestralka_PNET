@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Gym.Models.Database;
 using Gym.Business.Factories;
 using Gym.Business.AOPStrategies;
-using Gym.Business.Services;
 using Gym.Business.Interfaces;
 
 namespace Gym.Business.TrainingGenerator
@@ -18,30 +17,32 @@ namespace Gym.Business.TrainingGenerator
         private readonly AimOfPlanFactory _aimOfPlanFactory;
         private readonly IExerciseGetter _exerciseGetter;
         private readonly IExerciseSelector _exerciseSelector;
-        private readonly INextMuscleGroupResolver _nextMuscleGroupResolver;
+        private readonly ITrainingTypeSequenceRepository _trainingTypeSequenceRepository;
         private readonly IExerciseInTrainingService _exerciseInTrainingService;
 
         public TrainingGenerator(AimOfPlanFactory aimOfPlanFactory, IExerciseGetter exerciseGetter,
-                                IExerciseSelector exerciseSelector, INextMuscleGroupResolver nextMuscleGroupResolver,
+                                IExerciseSelector exerciseSelector, ITrainingTypeSequenceRepository trainingTypeSequenceRepository,
                                 IExerciseInTrainingService exerciseInTrainingService)
         {
             _aimOfPlanFactory = aimOfPlanFactory;
             _exerciseGetter = exerciseGetter;
             _exerciseSelector = exerciseSelector;
-            _nextMuscleGroupResolver = nextMuscleGroupResolver;
+            _trainingTypeSequenceRepository = trainingTypeSequenceRepository;
             _exerciseInTrainingService = exerciseInTrainingService;
         }
 
-        public void GenerateTraining(int idAimOfTraining, int idTrainingPlan,
-                                         int idTrainingType, int idTraining)
+        public void GenerateTraining(int idAimOfTraining, int idTrainingTypeSequence, int idTraining)
         {
             int recomendedNumberOfExercises = 7;
 
             // Create strategy based on the aim of training
             IAimOfPlanStrategy aimOfPlanStrategy = _aimOfPlanFactory.Create(idAimOfTraining);
 
-            // Get the next muscle group to train
-            int idNextMuscleGroup = _nextMuscleGroupResolver.GetNextMuscleGroupId(idTrainingPlan, idTrainingType);
+            // Resolve muscle group directly from the selected sequence item for this training
+            var trainingTypeSequence = _trainingTypeSequenceRepository.GetById(idTrainingTypeSequence)
+                ?? throw new Exception($"TrainingTypeSequence with id '{idTrainingTypeSequence}' not found.");
+
+            int idNextMuscleGroup = trainingTypeSequence.IdMuscleGroup;
 
             // Get all exercises for the next muscle group
             IEnumerable<Exercise> exercises = _exerciseGetter.GetExercisesByMuscleGroup(idNextMuscleGroup);

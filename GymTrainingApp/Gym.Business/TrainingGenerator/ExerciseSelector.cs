@@ -20,10 +20,14 @@ namespace Gym.Business.TrainingGenerator
         public IEnumerable<Exercise> SelectExercises(IEnumerable<Exercise> exercises, int numberOfExercises, int idMuscleGroup)
         {
             List<Exercise> selectedExercises = new List<Exercise>();
-                
-            // Always select all complex (compound) exercises first
+
+            // Ensure at least one complex (compound) exercise is selected when available
             var complexExercises = exercises.Where(e => e.Complex).ToList();
-            selectedExercises.AddRange(complexExercises);
+            if (complexExercises.Count > 0)
+            {
+                Exercise selectedComplex = complexExercises[Random.Shared.Next(complexExercises.Count)];
+                selectedExercises.Add(selectedComplex);
+            }
 
             int remainingSlots = numberOfExercises - selectedExercises.Count;
 
@@ -38,22 +42,29 @@ namespace Gym.Business.TrainingGenerator
 
             if (numberOfMuscles == 0)
             {
+                var fallbackCandidates = exercises
+                    .Where(e => selectedExercises.All(se => se.Id != e.Id))
+                    .OrderBy(_ => Random.Shared.Next())
+                    .Take(remainingSlots)
+                    .ToList();
+
+                selectedExercises.AddRange(fallbackCandidates);
                 return selectedExercises;
             }
 
-            // Group the non-complex exercises by muscle
+            // Group remaining exercises by muscle
             var alreadySelectedIds = new HashSet<int>(selectedExercises.Select(e => e.Id));
-            var nonComplexByMuscle = exercises
-                .Where(e => !e.Complex && !alreadySelectedIds.Contains(e.Id))
+            var exercisesByMuscle = exercises
+                .Where(e => !alreadySelectedIds.Contains(e.Id))
                 .GroupBy(e => e.IdMuscle)
-                .ToDictionary(g => g.Key, g => g.ToList());
+                .ToDictionary(g => g.Key, g => g.OrderBy(_ => Random.Shared.Next()).ToList());
 
             // Calculate how many exercises per muscle (base + remainder)
             int basePerMuscle = remainingSlots / numberOfMuscles;
             int remainder = remainingSlots % numberOfMuscles;
 
             // Distribute exercises across muscles as evenly as possible
-            foreach (var muscle in muscles)
+            foreach (var muscle in muscles.OrderBy(_ => Random.Shared.Next()))
             {
                 int countForThisMuscle = basePerMuscle + (remainder > 0 ? 1 : 0);
                 if (remainder > 0)
@@ -61,10 +72,24 @@ namespace Gym.Business.TrainingGenerator
                     remainder--;
                 }
 
-                if (nonComplexByMuscle.TryGetValue(muscle.Id, out var available))
+                if (exercisesByMuscle.TryGetValue(muscle.Id, out var available))
                 {
                     selectedExercises.AddRange(available.Take(countForThisMuscle));
                 }
+            }
+
+            // If some slots are still empty, fill them randomly from all remaining exercises
+            int missing = numberOfExercises - selectedExercises.Count;
+            if (missing > 0)
+            {
+                var selectedIds = new HashSet<int>(selectedExercises.Select(e => e.Id));
+                var remaining = exercises
+                    .Where(e => !selectedIds.Contains(e.Id))
+                    .OrderBy(_ => Random.Shared.Next())
+                    .Take(missing)
+                    .ToList();
+
+                selectedExercises.AddRange(remaining);
             }
 
             return selectedExercises;

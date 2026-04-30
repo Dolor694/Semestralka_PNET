@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Gym.Models.Entities
 {
@@ -16,9 +11,8 @@ namespace Gym.Models.Entities
         [MaxLength(100)]
         public string Name { get; set; } = string.Empty;
 
-
         // Navigation
-        public ICollection<Muscle> Muscles { get; set; } = [];
+        public ICollection<MuscleGroupMuscle> MuscleGroupMuscles { get; set; } = [];
         public ICollection<TrainingTypeSequence> TrainingTypeSequences { get; set; } = [];
     }
 }

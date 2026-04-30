@@ -24,6 +24,7 @@ namespace Gym.Models.Database
         {
             return _context.Trainings.Where(t => t.IdTrainingPlan == idPlan).
                 OrderByDescending(t => t.Date).
+                ThenByDescending(t => t.Id).
                 FirstOrDefault();
         }
 

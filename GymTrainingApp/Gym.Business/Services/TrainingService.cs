@@ -44,7 +44,7 @@ namespace Gym.Business.Services
             _trainingRepository.Add(training);
 
             // Generate exercises using the DB-assigned training Id
-            _trainingGenerator.GenerateTraining(aimOfTraining, idPlan, trainingType, training.Id);
+            _trainingGenerator.GenerateTraining(aimOfTraining, idNextTrainingTypeSequence, training.Id);
 
             return training;
         }

@@ -9,6 +9,6 @@ namespace Gym.Business.TrainingGenerator
 {
     public interface ITrainingGenerator
     {
-        void GenerateTraining(int idAimOfTraining, int idTrainingPlan, int idTrainingType, int idTraining);
+        void GenerateTraining(int idAimOfTraining, int idTrainingTypeSequence, int idTraining);
     }
 }

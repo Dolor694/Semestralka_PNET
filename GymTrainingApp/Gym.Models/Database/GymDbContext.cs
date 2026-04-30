@@ -8,6 +8,7 @@ namespace Gym.Models.Data
         public DbSet<User> Users { get; set; }
         public DbSet<MuscleGroup> MuscleGroups { get; set; }
         public DbSet<Muscle> Muscles { get; set; }
+        public DbSet<MuscleGroupMuscle> MuscleGroupMuscles { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<AimOfPlan> AimsOfPlan { get; set; }
         public DbSet<TrainingType> TrainingTypes { get; set; }
@@ -59,11 +60,19 @@ namespace Gym.Models.Data
                 .WithMany(tts => tts.Trainings)
                 .HasForeignKey(t => t.IdTrainingTypeSequence);
 
-            // MuscleGroup -> Muscle
-            modelBuilder.Entity<Muscle>()
-                .HasOne(m => m.MuscleGroup)
-                .WithMany(mg => mg.Muscles)
-                .HasForeignKey(m => m.IdMuscleGroup);
+            // MuscleGroup <-> Muscle (M:N split table)
+            modelBuilder.Entity<MuscleGroupMuscle>()
+                .HasKey(mgm => new { mgm.IdMuscleGroup, mgm.IdMuscle });
+
+            modelBuilder.Entity<MuscleGroupMuscle>()
+                .HasOne(mgm => mgm.MuscleGroup)
+                .WithMany(mg => mg.MuscleGroupMuscles)
+                .HasForeignKey(mgm => mgm.IdMuscleGroup);
+
+            modelBuilder.Entity<MuscleGroupMuscle>()
+                .HasOne(mgm => mgm.Muscle)
+                .WithMany(m => m.MuscleGroupMuscles)
+                .HasForeignKey(mgm => mgm.IdMuscle);
 
             // Muscle -> Exercise
             modelBuilder.Entity<Exercise>()
