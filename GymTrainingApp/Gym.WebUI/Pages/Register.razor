@@ -1,0 +1,109 @@
+﻿@page "/register"
+@using System.ComponentModel.DataAnnotations
+
+<h3>Register</h3>
+
+<EditForm Model="@registerModel" OnValidSubmit="@RegisterAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <InputText id="username" class="form-control" @bind-Value="registerModel.Username" />
+        <ValidationMessage For="@(() => registerModel.Username)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="registerModel.Password" />
+        <ValidationMessage For="@(() => registerModel.Password)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm password</label>
+        <InputText id="confirmPassword" type="password" class="form-control" @bind-Value="registerModel.ConfirmPassword" />
+        <ValidationMessage For="@(() => registerModel.ConfirmPassword)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="weight" class="form-label">Weight (kg)</label>
+        <InputNumber id="weight" class="form-control" @bind-Value="registerModel.Weight" />
+        <ValidationMessage For="@(() => registerModel.Weight)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
+        @(isSubmitting ? "Registering..." : "Register")
+    </button>
+</EditForm>
+
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger mt-3">@errorMessage</div>
+}
+
+@code {
+    [Inject]
+    private HttpClient Http { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    private AlertContext AlertContext { get; set; } = default!;
+
+    private RegisterFormModel registerModel = new();
+    private bool isSubmitting;
+    private string? errorMessage;
+
+    private async Task RegisterAsync()
+    {
+        isSubmitting = true;
+        errorMessage = null;
+
+        try
+        {
+            var sendRequest = new UserRegisterDto(registerModel.Username, registerModel.Password, registerModel.Weight);
+            var response = await Http.PostAsJsonAsync("api/user/register", sendRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                AlertContext.SetSuccessMessage("Registration successful.");
+                Navigation.NavigateTo("/");
+                return;
+            }
+
+            var apiError = await response.Content.ReadAsStringAsync();
+            errorMessage = string.IsNullOrWhiteSpace(apiError)
+                ? "Registration failed."
+                : apiError;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Registration failed: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+
+    private sealed class RegisterFormModel
+    {
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
+        public string Username { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        public string Password { get; set; } = string.Empty;
+
+        [Required]
+        [Compare(nameof(Password))]
+        public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Range(1, 500)]
+        public double Weight { get; set; } = 70;
+    }
+
+    private sealed record UserRegisterDto(string Username, string Password, double Weight);
+}

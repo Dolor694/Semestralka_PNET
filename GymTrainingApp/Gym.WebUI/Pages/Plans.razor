@@ -1,0 +1,389 @@
+﻿@page "/plans"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>My Plans</PageTitle>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0">My Training Plans</h3>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="d-flex align-items-center gap-2">
+            <div class="spinner-border text-primary" role="status"></div>
+            <span>Loading plans...</span>
+        </div>
+    }
+    else if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var plan in plans)
+            {
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@plan.PlanName</h5>
+
+                            <p class="mb-2"><strong>Type:</strong> @GetTrainingTypeName(plan.IdTrainingType)</p>
+                            <p class="mb-3"><strong>Aim:</strong> @GetAimName(plan.IdAimOfTraining)</p>
+
+                            <div class="mt-auto d-grid gap-2">
+                                <button type="button" class="btn btn-outline-secondary" @onclick="() => AskForUpdate(plan)">Update</button>
+                                <button type="button" class="btn btn-outline-danger" @onclick="() => AskForDelete(plan)">Delete</button>
+                                <button type="button" class="btn btn-primary" @onclick="() => GoToTrainings(plan.Id)">Open</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card h-100 border-primary shadow-sm">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <h5 class="card-title">Add New Plan</h5>
+                        <p class="text-muted mb-3">Create a new training plan.</p>
+                        <button type="button" class="btn btn-primary" @onclick="GoToCreatePlan">
+                            + Add Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (planToDelete is not null)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete plan</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="CancelDelete"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">
+                        Are you sure you want to delete plan <strong>@planToDelete.PlanName</strong>?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelDelete" disabled="@isDeleting">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="ConfirmDeleteAsync" disabled="@isDeleting">
+                        @(isDeleting ? "Deleting..." : "Delete")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (planToUpdate is not null)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update plan</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="CancelUpdate"></button>
+                </div>
+
+                <EditForm Model="@planToUpdate" OnValidSubmit="@SaveUpdateAsync">
+                    <DataAnnotationsValidator />
+
+                    <div class="modal-body">
+                        <ValidationSummary />
+
+                        <div class="mb-3">
+                            <label class="form-label">Plan name</label>
+                            <InputText class="form-control" @bind-Value="planToUpdate.PlanName" />
+                            <ValidationMessage For="@(() => planToUpdate.PlanName)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Training frequency (days/week)</label>
+                            <InputNumber class="form-control" @bind-Value="planToUpdate.TrainingFrequency" />
+                            <ValidationMessage For="@(() => planToUpdate.TrainingFrequency)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Type</label>
+                            <InputSelect class="form-select" @bind-Value="planToUpdate.IdTrainingType">
+                                <option value="1">Full Body</option>
+                                <option value="2">Upper Lower</option>
+                                <option value="3">Push Pull Legs</option>
+                            </InputSelect>
+                        </div>
+
+                        <div class="mb-0">
+                            <label class="form-label">Aim</label>
+                            <InputSelect class="form-select" @bind-Value="planToUpdate.IdAimOfTraining">
+                                <option value="1">Build Muscle</option>
+                                <option value="2">Build Strength</option>
+                                <option value="3">Lose Weight</option>
+                            </InputSelect>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="CancelUpdate" disabled="@isUpdating">Back</button>
+                        <button type="submit" class="btn btn-primary" disabled="@isUpdating">
+                            @(isUpdating ? "Saving..." : "Save")
+                        </button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Inject]
+    private HttpClient Http { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    private UserContext UserContext { get; set; } = default!;
+
+    private readonly List<PlanCardViewModel> plans = [];
+    private bool isLoading = true;
+    private bool isDeleting;
+    private bool isUpdating;
+    private string? errorMessage;
+    private PlanCardViewModel? planToDelete;
+    private PlanUpdateFormModel? planToUpdate;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPlansAsync();
+    }
+
+    private async Task LoadPlansAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+        plans.Clear();
+
+        if (!UserContext.IsLoggedIn || !UserContext.UserId.HasValue)
+        {
+            errorMessage = "You must be logged in to view your training plans.";
+            isLoading = false;
+            return;
+        }
+
+        try
+        {
+            var response = await Http.GetFromJsonAsync<List<TrainingPlanDto>>($"api/trainingplan/user/{UserContext.UserId.Value}");
+            if (response is null)
+            {
+                isLoading = false;
+                return;
+            }
+
+            foreach (var item in response)
+            {
+                plans.Add(new PlanCardViewModel(
+                    item.Id,
+                    item.PlanName,
+                    item.TrainingFrequency,
+                    item.IdTrainingType,
+                    item.IdAimOfTraining));
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to load plans: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void AskForDelete(PlanCardViewModel plan)
+    {
+        planToUpdate = null;
+        planToDelete = plan;
+    }
+
+    private void CancelDelete()
+    {
+        planToDelete = null;
+    }
+
+    private async Task ConfirmDeleteAsync()
+    {
+        if (planToDelete is null)
+        {
+            return;
+        }
+
+        isDeleting = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await Http.DeleteAsync($"api/trainingplan/{planToDelete.Id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                plans.Remove(planToDelete);
+                planToDelete = null;
+                return;
+            }
+
+            errorMessage = response.StatusCode == System.Net.HttpStatusCode.NotFound
+                ? "Plan not found."
+                : $"Delete failed ({(int)response.StatusCode}).";
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Delete failed: {ex.Message}";
+        }
+        finally
+        {
+            isDeleting = false;
+        }
+    }
+
+    private void AskForUpdate(PlanCardViewModel plan)
+    {
+        planToDelete = null;
+        planToUpdate = new PlanUpdateFormModel
+        {
+            Id = plan.Id,
+            PlanName = plan.PlanName,
+            TrainingFrequency = plan.TrainingFrequency,
+            IdTrainingType = plan.IdTrainingType,
+            IdAimOfTraining = plan.IdAimOfTraining
+        };
+    }
+
+    private void CancelUpdate()
+    {
+        planToUpdate = null;
+        Navigation.NavigateTo("/plans");
+    }
+
+    private async Task SaveUpdateAsync()
+    {
+        if (planToUpdate is null)
+        {
+            return;
+        }
+
+        if (!UserContext.UserId.HasValue)
+        {
+            errorMessage = "You must be logged in to update a plan.";
+            return;
+        }
+
+        isUpdating = true;
+        errorMessage = null;
+
+        try
+        {
+            var request = new UpdateTrainingPlanRequest(
+                planToUpdate.PlanName,
+                planToUpdate.TrainingFrequency,
+                UserContext.UserId.Value,
+                planToUpdate.IdTrainingType,
+                planToUpdate.IdAimOfTraining);
+
+            var response = await Http.PutAsJsonAsync($"api/trainingplan/{planToUpdate.Id}", request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var index = plans.FindIndex(p => p.Id == planToUpdate.Id);
+                if (index >= 0)
+                {
+                    plans[index] = new PlanCardViewModel(
+                        planToUpdate.Id,
+                        planToUpdate.PlanName,
+                        planToUpdate.TrainingFrequency,
+                        planToUpdate.IdTrainingType,
+                        planToUpdate.IdAimOfTraining);
+                }
+
+                planToUpdate = null;
+                Navigation.NavigateTo("/plans");
+                return;
+            }
+
+            var apiError = await response.Content.ReadAsStringAsync();
+            errorMessage = string.IsNullOrWhiteSpace(apiError)
+                ? $"Update failed ({(int)response.StatusCode})."
+                : apiError;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Update failed: {ex.Message}";
+        }
+        finally
+        {
+            isUpdating = false;
+        }
+    }
+
+    private void GoToCreatePlan()
+    {
+        Navigation.NavigateTo("/plans/create");
+    }
+
+    private void GoToTrainings(int trainingPlanId)
+    {
+        Navigation.NavigateTo($"/trainings/{trainingPlanId}");
+    }
+
+    private static string GetTrainingTypeName(int idTrainingType)
+    {
+        return idTrainingType switch
+        {
+            1 => "Full Body",
+            2 => "Upper Lower",
+            3 => "Push Pull Legs",
+            _ => $"Type #{idTrainingType}"
+        };
+    }
+
+    private static string GetAimName(int idAimOfTraining)
+    {
+        return idAimOfTraining switch
+        {
+            1 => "Build Muscle",
+            2 => "Build Strength",
+            3 => "Lose Weight",
+            _ => $"Aim #{idAimOfTraining}"
+        };
+    }
+
+    private sealed record TrainingPlanDto(int Id, string PlanName, int TrainingFrequency, int IdUser, int IdTrainingType, int IdAimOfTraining);
+
+    private sealed record PlanCardViewModel(int Id, string PlanName, int TrainingFrequency, int IdTrainingType, int IdAimOfTraining);
+
+    private sealed record UpdateTrainingPlanRequest(string PlanName, int TrainingFrequency, int UserId, int IdTrainingType, int IdAimOfTraining);
+
+    private sealed class PlanUpdateFormModel
+    {
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 3)]
+        public string PlanName { get; set; } = string.Empty;
+
+        [Range(1, 7)]
+        public int TrainingFrequency { get; set; }
+
+        [Range(1, int.MaxValue)]
+        public int IdTrainingType { get; set; }
+
+        [Range(1, int.MaxValue)]
+        public int IdAimOfTraining { get; set; }
+    }
+}

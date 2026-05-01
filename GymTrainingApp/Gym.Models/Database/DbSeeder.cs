@@ -1,5 +1,6 @@
 using Gym.Models.Entities;
 
+
 namespace Gym.Models.Data
 {
     public static class DbSeeder
@@ -8,27 +9,45 @@ namespace Gym.Models.Data
         {
             context.Database.EnsureCreated();
 
-            // Seed only once (master data for generator + relational model)
-            if (context.AimsOfPlan.Any()
+            // Seed master data only once
+            var hasMasterData = context.AimsOfPlan.Any()
                 || context.TrainingTypes.Any()
                 || context.TrainingTypeSequences.Any()
                 || context.MuscleGroups.Any()
                 || context.Muscles.Any()
                 || context.MuscleGroupMuscles.Any()
-                || context.Exercises.Any())
+                || context.Exercises.Any();
+
+            if (!hasMasterData)
+            {
+                SeedAimsOfPlan(context);
+                SeedTrainingTypes(context);
+                SeedMuscleGroups(context);
+                SeedMuscles(context);
+                SeedMuscleGroupMuscles(context);
+                SeedTrainingTypeSequences(context);
+                SeedExercises(context);
+            }
+
+            // Always ensure test user exists
+            SeedTestUsers(context);
+
+            context.SaveChanges();
+        }
+
+        private static void SeedTestUsers(GymDbContext context)
+        {
+            if (context.Users.Any(u => u.Username == "karel"))
             {
                 return;
             }
 
-            SeedAimsOfPlan(context);
-            SeedTrainingTypes(context);
-            SeedMuscleGroups(context);
-            SeedMuscles(context);
-            SeedMuscleGroupMuscles(context);
-            SeedTrainingTypeSequences(context);
-            SeedExercises(context);
-
-            context.SaveChanges();
+            context.Users.Add(new User
+            {
+                Username = "karel",
+                Password = BCrypt.Net.BCrypt.HashPassword("karel123"),
+                Weight = 80
+            });
         }
 
         private static void SeedAimsOfPlan(GymDbContext context)
@@ -149,44 +168,27 @@ namespace Gym.Models.Data
         private static void SeedExercises(GymDbContext context)
         {
             context.Exercises.AddRange(
-                // Chest
                 new Exercise { Id = 1, Name = "Bench Press", Complex = true, IdMuscle = 1 },
                 new Exercise { Id = 2, Name = "Incline Dumbbell Press", Complex = false, IdMuscle = 1 },
                 new Exercise { Id = 3, Name = "Cable Fly", Complex = false, IdMuscle = 1 },
-
-                // Upper Back
                 new Exercise { Id = 4, Name = "Deadlift", Complex = true, IdMuscle = 2 },
                 new Exercise { Id = 5, Name = "Barbell Row", Complex = false, IdMuscle = 2 },
                 new Exercise { Id = 6, Name = "Chest Supported Row", Complex = false, IdMuscle = 2 },
-
-                // Lats
                 new Exercise { Id = 7, Name = "Pull Up", Complex = false, IdMuscle = 3 },
                 new Exercise { Id = 8, Name = "Lat Pulldown", Complex = false, IdMuscle = 3 },
-                // Shoulders
                 new Exercise { Id = 9, Name = "Overhead Press", Complex = false, IdMuscle = 4 },
                 new Exercise { Id = 10, Name = "Lateral Raise", Complex = false, IdMuscle = 4 },
-
-                // Biceps
                 new Exercise { Id = 11, Name = "Barbell Curl", Complex = false, IdMuscle = 5 },
                 new Exercise { Id = 12, Name = "Incline Dumbbell Curl", Complex = false, IdMuscle = 5 },
-                // Triceps
                 new Exercise { Id = 13, Name = "Close Grip Bench Press", Complex = false, IdMuscle = 6 },
                 new Exercise { Id = 14, Name = "Cable Pushdown", Complex = false, IdMuscle = 6 },
-
-                // Quads
                 new Exercise { Id = 15, Name = "Back Squat", Complex = true, IdMuscle = 7 },
                 new Exercise { Id = 16, Name = "Leg Extension", Complex = false, IdMuscle = 7 },
-                // Hamstrings
                 new Exercise { Id = 17, Name = "Romanian Deadlift", Complex = false, IdMuscle = 8 },
                 new Exercise { Id = 18, Name = "Leg Curl", Complex = false, IdMuscle = 8 },
-
-                // Glutes
                 new Exercise { Id = 19, Name = "Hip Thrust", Complex = false, IdMuscle = 9 },
                 new Exercise { Id = 20, Name = "Cable Kickback", Complex = false, IdMuscle = 9 },
-                // Calves
                 new Exercise { Id = 21, Name = "Standing Calf Raise", Complex = false, IdMuscle = 10 },
-
-                // Core
                 new Exercise { Id = 22, Name = "Hanging Leg Raise", Complex = false, IdMuscle = 11 },
                 new Exercise { Id = 23, Name = "Cable Crunch", Complex = false, IdMuscle = 11 }
             );

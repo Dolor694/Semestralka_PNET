@@ -1,7 +1,48 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\pages\\trainings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\pages\\trainings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\pages\\plans.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\pages\\plans.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\pages\\createplan.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\pages\\createplan.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webui\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DB6BF1F7-705F-48D1-B8D0-584322BAC652}|Gym.WebUI\\Gym.WebUI.csproj|solutionrelative:gym.webui\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 86,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +59,136 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Trainings.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Trainings.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Pages\\Trainings.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Trainings.razor",
+              "RelativeToolTip": "Gym.WebUI\\Pages\\Trainings.razor",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABEAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T12:04:33.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Register.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Register.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Pages\\Register.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Register.razor",
+              "RelativeToolTip": "Gym.WebUI\\Pages\\Register.razor",
+              "ViewState": "AgIAADIAAAAAAAAAAAASwEQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T11:43:37.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Login.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Login.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Pages\\Login.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Login.razor",
+              "RelativeToolTip": "Gym.WebUI\\Pages\\Login.razor",
+              "ViewState": "AgIAAE0AAAAAAAAAAAASwFsAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T11:43:15.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Program.cs",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Program.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Program.cs",
+              "RelativeToolTip": "Gym.WebUI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-01T11:42:35.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreatePlan.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\CreatePlan.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Pages\\CreatePlan.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\CreatePlan.razor",
+              "RelativeToolTip": "Gym.WebUI\\Pages\\CreatePlan.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T11:30:30.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Plans.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Plans.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Pages\\Plans.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Plans.razor",
+              "RelativeToolTip": "Gym.WebUI\\Pages\\Plans.razor",
+              "ViewState": "AgIAAEEBAAAAAAAAAAAQwFEBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T11:13:55.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserContext.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\UserContext.cs",
+              "RelativeDocumentMoniker": "Gym.WebUI\\UserContext.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\UserContext.cs",
+              "RelativeToolTip": "Gym.WebUI\\UserContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-01T10:45:59.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "Gym.WebUI\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T10:09:10.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Gym.WebUI\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T09:50:00.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Gym.WebUI\\Pages\\Home.razor",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebUI\\Pages\\Home.razor",
+              "RelativeToolTip": "Gym.WebUI\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-01T08:39:04.13Z",
+              "EditorCaption": ""
             }
           ]
         }

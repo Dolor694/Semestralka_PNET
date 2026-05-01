@@ -13,4 +13,7 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = new Uri(apiBaseUrl)
 });
 
+builder.Services.AddScoped<UserContext>();
+builder.Services.AddScoped<AlertContext>();
+
 await builder.Build().RunAsync();

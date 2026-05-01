@@ -1,0 +1,183 @@
+@page "/plans/create"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Create Plan</PageTitle>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Create Training Plan</h3>
+
+                    <EditForm Model="@model" OnValidSubmit="@CreatePlanAsync">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="mb-3">
+                            <label for="planName" class="form-label">Plan name</label>
+                            <InputText id="planName" class="form-control" @bind-Value="model.PlanName" />
+                            <ValidationMessage For="@(() => model.PlanName)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="trainingFrequency" class="form-label">Training frequency (days/week)</label>
+                            <InputNumber id="trainingFrequency" class="form-control" @bind-Value="model.TrainingFrequency" />
+                            <ValidationMessage For="@(() => model.TrainingFrequency)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="trainingType" class="form-label">Type</label>
+                            <InputSelect id="trainingType" class="form-select" @bind-Value="model.IdTrainingType">
+                                @foreach (var type in trainingTypes)
+                                {
+                                    <option value="@type.Id">@type.Name</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => model.IdTrainingType)" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="aimOfTraining" class="form-label">Aim</label>
+                            <InputSelect id="aimOfTraining" class="form-select" @bind-Value="model.IdAimOfTraining">
+                                @foreach (var aim in aimsOfTraining)
+                                {
+                                    <option value="@aim.Id">@aim.Name</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => model.IdAimOfTraining)" />
+                        </div>
+
+                        @if (!string.IsNullOrWhiteSpace(errorMessage))
+                        {
+                            <div class="alert alert-danger">@errorMessage</div>
+                        }
+
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-secondary" @onclick="GoBackToPlans">
+                                Back
+                            </button>
+                            <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
+                                @(isSubmitting ? "Creating..." : "Create Plan")
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    private HttpClient Http { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    private UserContext UserContext { get; set; } = default!;
+
+    [Inject]
+    private AlertContext AlertContext { get; set; } = default!;
+
+    private readonly CreatePlanFormModel model = new();
+    private bool isSubmitting;
+    private string? errorMessage;
+
+    private readonly List<SelectItem> trainingTypes =
+    [
+        new SelectItem(1, "Full Body"),
+        new SelectItem(2, "Upper Lower"),
+        new SelectItem(3, "Push Pull Legs")
+    ];
+
+    private readonly List<SelectItem> aimsOfTraining =
+    [
+        new SelectItem(1, "Build Muscle"),
+        new SelectItem(2, "Build Strength"),
+        new SelectItem(3, "Lose Weight")
+    ];
+
+    protected override void OnInitialized()
+    {
+        if (!UserContext.IsLoggedIn || !UserContext.UserId.HasValue)
+        {
+            Navigation.NavigateTo("/login");
+        }
+    }
+
+    private async Task CreatePlanAsync()
+    {
+        errorMessage = null;
+        isSubmitting = true;
+
+        try
+        {
+            if (!UserContext.UserId.HasValue)
+            {
+                errorMessage = "You must be logged in to create a plan.";
+                return;
+            }
+
+            var request = new CreateTrainingPlanRequest(
+                model.PlanName,
+                model.TrainingFrequency,
+                UserContext.UserId.Value,
+                model.IdTrainingType,
+                model.IdAimOfTraining);
+
+            var response = await Http.PostAsJsonAsync("api/trainingplan/create", request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                AlertContext.SetSuccessMessage("Plan created successfully.");
+                Navigation.NavigateTo("/plans");
+                return;
+            }
+
+            var apiError = await response.Content.ReadAsStringAsync();
+            errorMessage = string.IsNullOrWhiteSpace(apiError)
+                ? "Failed to create plan."
+                : apiError;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to create plan: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+
+    private void GoBackToPlans()
+    {
+        Navigation.NavigateTo("/plans");
+    }
+
+    private sealed class CreatePlanFormModel
+    {
+        [Required]
+        [StringLength(100, MinimumLength = 3)]
+        public string PlanName { get; set; } = string.Empty;
+
+        [Range(1, 7)]
+        public int TrainingFrequency { get; set; } = 3;
+
+        [Range(1, int.MaxValue)]
+        public int IdTrainingType { get; set; } = 1;
+
+        [Range(1, int.MaxValue)]
+        public int IdAimOfTraining { get; set; } = 1;
+    }
+
+    private sealed record SelectItem(int Id, string Name);
+
+    private sealed record CreateTrainingPlanRequest(
+        string PlanName,
+        int TrainingFrequency,
+        int UserId,
+        int IdTrainingType,
+        int IdAimOfTraining);
+}

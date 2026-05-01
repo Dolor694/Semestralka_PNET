@@ -1,4 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@inject UserContext UserContext
+@inject IJSRuntime Js
+@inject AlertContext AlertContext
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -14,3 +18,35 @@
         </article>
     </main>
 </div>
+
+@if (!string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Success</strong>
+                <button type="button" class="btn-close btn-close-white" @onclick="ClosePopup" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @successMessage
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string? successMessage;
+
+    protected override void OnParametersSet()
+    {
+        if (string.IsNullOrWhiteSpace(successMessage))
+        {
+            successMessage = AlertContext.PopSuccessMessage();
+        }
+    }
+
+    private void ClosePopup()
+    {
+        successMessage = null;
+    }
+}
