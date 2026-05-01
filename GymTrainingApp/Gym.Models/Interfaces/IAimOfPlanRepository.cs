@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace Gym.Models.Interfaces
 {
     public interface IAimOfPlanRepository : IRepository<AimOfPlan>
-    {
-        
+    {   
     }
 }

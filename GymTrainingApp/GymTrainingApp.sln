@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37012.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.UI", "Gym.UI\Gym.UI.csproj", "{D4349DB6-88E6-4766-9DF1-A555525059B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.CLI", "Gym.UI\Gym.CLI.csproj", "{D4349DB6-88E6-4766-9DF1-A555525059B4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1E4B0564-9412-49EA-B947-1234BAA1A520} = {1E4B0564-9412-49EA-B947-1234BAA1A520}
 	EndProjectSection
@@ -16,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Models", "Gym.Models\Gym.Models.csproj", "{4C80ADB7-94E6-43D5-9574-94D80C938295}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Tests", "Gym.Testing\Gym.Tests.csproj", "{EBAF6AB8-1428-4D44-9544-3EFBE066F3CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.WebAPI", "Gym.WebAPI\Gym.WebAPI.csproj", "{FE2051D5-4979-4ABD-816D-D990103B5110}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.WebUI", "Gym.WebUI\Gym.WebUI.csproj", "{DB6BF1F7-705F-48D1-B8D0-584322BAC652}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{EBAF6AB8-1428-4D44-9544-3EFBE066F3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBAF6AB8-1428-4D44-9544-3EFBE066F3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBAF6AB8-1428-4D44-9544-3EFBE066F3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE2051D5-4979-4ABD-816D-D990103B5110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE2051D5-4979-4ABD-816D-D990103B5110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE2051D5-4979-4ABD-816D-D990103B5110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE2051D5-4979-4ABD-816D-D990103B5110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6BF1F7-705F-48D1-B8D0-584322BAC652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6BF1F7-705F-48D1-B8D0-584322BAC652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6BF1F7-705F-48D1-B8D0-584322BAC652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6BF1F7-705F-48D1-B8D0-584322BAC652}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

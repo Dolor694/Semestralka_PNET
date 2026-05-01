@@ -103,7 +103,7 @@ namespace Gym.Business.Services
             return true;
         }
 
-        public IEnumerable<TrainingDTO> GetTrainingsByPlan(int idPlan)
+        public List<TrainingDTO> GetTrainingsByPlan(int idPlan)
         {
             if (idPlan <= 0)
             {
@@ -111,7 +111,7 @@ namespace Gym.Business.Services
             }
 
             IEnumerable<Training> trainings = _trainingRepository.GetTrainingsByPlan(idPlan);
-            return trainings.Select(MapToTrainingDTO);
+            return trainings.Select(MapToTrainingDTO).ToList();
         }
 
         public Training? GetLastTrainingInPlan(int idPlan)

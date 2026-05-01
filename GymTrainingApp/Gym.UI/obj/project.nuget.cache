@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Nbc9poAJn5E=",
+  "dgSpecHash": "7qwPSRpWbZU=",
   "success": true,
-  "projectFilePath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.UI\\Gym.UI.csproj",
+  "projectFilePath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.UI\\Gym.CLI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lukáš\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\Lukáš\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

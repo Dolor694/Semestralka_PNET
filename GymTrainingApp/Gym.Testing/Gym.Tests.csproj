@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gym.Business\Gym.Business.csproj" />
     <ProjectReference Include="..\Gym.Models\Gym.Models.csproj" />
-    <ProjectReference Include="..\Gym.UI\Gym.UI.csproj" />
+    <ProjectReference Include="..\Gym.UI\Gym.CLI.csproj" />
   </ItemGroup>
 
 </Project>

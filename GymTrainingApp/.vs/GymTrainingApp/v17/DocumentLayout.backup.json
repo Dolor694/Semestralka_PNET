@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EBAF6AB8-1428-4D44-9544-3EFBE066F3CB}|Gym.Testing\\Gym.Tests.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.testing\\servicetests\\aimofplanservicetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBAF6AB8-1428-4D44-9544-3EFBE066F3CB}|Gym.Testing\\Gym.Tests.csproj|solutionrelative:gym.testing\\servicetests\\aimofplanservicetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE2051D5-4979-4ABD-816D-D990103B5110}|Gym.WebAPI\\Gym.WebAPI.csproj|c:\\skola\\04_ls2\\pnet\\semestralka_pnet\\gymtrainingapp\\gym.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE2051D5-4979-4ABD-816D-D990103B5110}|Gym.WebAPI\\Gym.WebAPI.csproj|solutionrelative:gym.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,14 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AimOfPlanServiceTest.cs",
-              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Testing\\ServiceTests\\AimOfPlanServiceTest.cs",
-              "RelativeDocumentMoniker": "Gym.Testing\\ServiceTests\\AimOfPlanServiceTest.cs",
-              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.Testing\\ServiceTests\\AimOfPlanServiceTest.cs",
-              "RelativeToolTip": "Gym.Testing\\ServiceTests\\AimOfPlanServiceTest.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAqwB8AAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Gym.WebAPI\\Program.cs",
+              "ToolTip": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.WebAPI\\Program.cs",
+              "RelativeToolTip": "Gym.WebAPI\\Program.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAEEAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T18:03:35.414Z",
+              "WhenOpened": "2026-04-30T21:19:58.95Z",
               "EditorCaption": ""
             }
           ]

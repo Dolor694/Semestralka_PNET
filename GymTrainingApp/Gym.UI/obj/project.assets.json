@@ -2464,9 +2464,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.UI\\Gym.UI.csproj",
-      "projectName": "Gym.UI",
-      "projectPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.UI\\Gym.UI.csproj",
+      "projectUniqueName": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.UI\\Gym.CLI.csproj",
+      "projectName": "Gym.CLI",
+      "projectPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.UI\\Gym.CLI.csproj",
       "packagesPath": "C:\\Users\\Lukáš\\.nuget\\packages\\",
       "outputPath": "C:\\Skola\\04_LS2\\PNET\\Semestralka_PNET\\GymTrainingApp\\Gym.UI\\obj\\",
       "projectStyle": "PackageReference",

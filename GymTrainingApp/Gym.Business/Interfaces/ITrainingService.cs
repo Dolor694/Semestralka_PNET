@@ -47,9 +47,9 @@ namespace Gym.Business.Interfaces
          * This method retrieves all trainings associated with a specific training plan.
          * 
          * @param idPlan The ID of the training plan for which to retrieve the trainings.
-         * @return An enumerable collection of TrainingDTO objects that are associated with the specified training plan.
+         * @return A list of TrainingDTO objects that are associated with the specified training plan.
          */
-        IEnumerable<TrainingDTO> GetTrainingsByPlan(int idPlan);
+        List<TrainingDTO> GetTrainingsByPlan(int idPlan);
 
         /*
          * This method retrieves the most recent training associated with a specific training plan.
