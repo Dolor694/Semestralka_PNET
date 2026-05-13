@@ -1,0 +1,254 @@
+﻿@page "/profile"
+@using System.ComponentModel.DataAnnotations
+@using Gym.WebUI.Contexts
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject UserContext UserContext
+@inject AlertContext AlertContext
+
+<PageTitle>Profile Manager</PageTitle>
+
+<div class="container py-4">
+    <h3 class="mb-4">Profile Manager</h3>
+
+    @if (!UserContext.IsLoggedIn || UserContext.UserId is null)
+    {
+        <div class="alert alert-warning">
+            You need to login first.
+        </div>
+        <button type="button" class="btn btn-primary" @onclick='() => Navigation.NavigateTo("/login")'>Go to Login</button>
+    }
+    else if (isLoading)
+    {
+        <div class="d-flex align-items-center gap-2">
+            <div class="spinner-border text-primary" role="status"></div>
+            <span>Loading profile...</span>
+        </div>
+    }
+    else
+    {
+        <div class="mb-3">
+            <button type="button" class="btn btn-outline-secondary" @onclick="TogglePasswordMode">
+                @(showPasswordForm ? "Back to profile details" : "Change password")
+            </button>
+        </div>
+
+        @if (!showPasswordForm)
+        {
+            <EditForm Model="@profileModel" OnValidSubmit="SaveProfileDetailsAsync">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <InputText id="username" class="form-control" @bind-Value="profileModel.Username" />
+                    <ValidationMessage For="@(() => profileModel.Username)" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="weight" class="form-label">Weight (kg)</label>
+                    <InputNumber id="weight" class="form-control" @bind-Value="profileModel.Weight" />
+                    <ValidationMessage For="@(() => profileModel.Weight)" />
+                </div>
+
+                <button type="submit" class="btn btn-primary" disabled="@isSavingProfile">
+                    @(isSavingProfile ? "Saving..." : "Save profile")
+                </button>
+            </EditForm>
+        }
+        else
+        {
+            <EditForm Model="@passwordModel" OnValidSubmit="SavePasswordAsync">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label for="newPassword" class="form-label">New password</label>
+                    <InputText id="newPassword" type="password" class="form-control" @bind-Value="passwordModel.NewPassword" />
+                    <ValidationMessage For="@(() => passwordModel.NewPassword)" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm new password</label>
+                    <InputText id="confirmPassword" type="password" class="form-control" @bind-Value="passwordModel.ConfirmPassword" />
+                    <ValidationMessage For="@(() => passwordModel.ConfirmPassword)" />
+                </div>
+
+                <button type="submit" class="btn btn-primary" disabled="@isSavingPassword">
+                    @(isSavingPassword ? "Saving..." : "Save password")
+                </button>
+            </EditForm>
+        }
+    }
+
+    @if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="alert alert-danger mt-3">@errorMessage</div>
+    }
+</div>
+
+@code {
+    private ProfileDetailsModel profileModel = new();
+    private PasswordChangeModel passwordModel = new();
+    private bool isLoading = true;
+    private bool isSavingProfile;
+    private bool isSavingPassword;
+    private bool showPasswordForm;
+    private string? errorMessage;
+
+
+    // Load user profile on component initialization
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProfileAsync();
+    }
+
+
+    // Fetches the user's profile from the API add to the form
+    private async Task LoadProfileAsync()
+    {
+        errorMessage = null;
+        isLoading = true;
+
+        try
+        {
+            if (!UserContext.IsLoggedIn || UserContext.UserId is null)
+            {
+                return;
+            }
+
+            var user = await Http.GetFromJsonAsync<UserProfileDto>($"api/user/{UserContext.UserId.Value}");
+            if (user is null)
+            {
+                errorMessage = "Failed to load user profile.";
+                return;
+            }
+
+            profileModel = new ProfileDetailsModel
+            {
+                Username = user.Username,
+                Weight = user.Weight
+            };
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to load profile: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+
+    // Toggles between the profile details form and the password change form
+    private void TogglePasswordMode()
+    {
+        showPasswordForm = !showPasswordForm;
+        errorMessage = null;
+
+        if (!showPasswordForm)
+        {
+            passwordModel = new PasswordChangeModel();
+        }
+    }
+
+
+    // Calls the API to update the user
+    private async Task SaveProfileDetailsAsync()
+    {
+        if (!UserContext.IsLoggedIn || UserContext.UserId is null)
+        {
+            errorMessage = "You need to login first.";
+            return;
+        }
+
+        isSavingProfile = true;
+        errorMessage = null;
+
+        try
+        {
+            var request = new UpdateUserDto(UserContext.UserId.Value, profileModel.Username, null, profileModel.Weight);
+            var response = await Http.PutAsJsonAsync("api/user/update", request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var apiError = await response.Content.ReadAsStringAsync();
+                errorMessage = string.IsNullOrWhiteSpace(apiError) ? "Failed to update profile." : apiError;
+                return;
+            }
+
+            AlertContext.SetSuccessMessage("Profile details updated successfully.");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to update profile: {ex.Message}";
+        }
+        finally
+        {
+            isSavingProfile = false;
+        }
+    }
+
+
+    // Calls the API to update the user's password
+    private async Task SavePasswordAsync()
+    {
+        if (!UserContext.IsLoggedIn || UserContext.UserId is null)
+        {
+            errorMessage = "You need to login first.";
+            return;
+        }
+
+        isSavingPassword = true;
+        errorMessage = null;
+
+        try
+        {
+            var request = new UpdateUserDto(UserContext.UserId.Value, null, passwordModel.NewPassword, null);
+            var response = await Http.PutAsJsonAsync("api/user/update", request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var apiError = await response.Content.ReadAsStringAsync();
+                errorMessage = string.IsNullOrWhiteSpace(apiError) ? "Failed to update password." : apiError;
+                return;
+            }
+
+            passwordModel = new PasswordChangeModel();
+            AlertContext.SetSuccessMessage("Password updated successfully.");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to update password: {ex.Message}";
+        }
+        finally
+        {
+            isSavingPassword = false;
+        }
+    }
+
+    private sealed class ProfileDetailsModel
+    {
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
+        public string Username { get; set; } = string.Empty;
+
+        [Range(1, 500)]
+        public double Weight { get; set; } = 70;
+    }
+
+    private sealed class PasswordChangeModel
+    {
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        public string NewPassword { get; set; } = string.Empty;
+
+        [Required]
+        [Compare(nameof(NewPassword), ErrorMessage = "Passwords do not match.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+    }
+
+    private sealed record UserProfileDto(int Id, string Username, double Weight);
+    private sealed record UpdateUserDto(int Id, string? Username, string? Password, double? Weight);
+}

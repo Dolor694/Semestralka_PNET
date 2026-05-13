@@ -1,4 +1,4 @@
-﻿using Gym.Business.Interfaces;
+﻿using Gym.Business.Services.ExerciseInTrainingService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +8,6 @@ namespace Gym.WebAPI.Controllers
     [ApiController]
     public class ExerciseInTrainingController : ControllerBase
     {
-
         private readonly IExerciseInTrainingService _exerciseInTrainingService;
 
         public ExerciseInTrainingController(IExerciseInTrainingService exerciseInTrainingService)
@@ -16,6 +15,8 @@ namespace Gym.WebAPI.Controllers
             _exerciseInTrainingService = exerciseInTrainingService;
         }
 
+
+        // (GET) - Calls the ExerciseInTrainingService to get an exercise-in-training by its id.
         [HttpGet("{id}")]
         public IActionResult GetExerciseInTraining(int id)
         {
@@ -27,6 +28,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(exerciseInTraining);
         }
 
+
+        // (GET) - Calls the ExerciseInTrainingService to get all exercises for a training by training id.
         [HttpGet("training/{idTraining}")]
         public IActionResult GetExercisesByTrainingId(int idTraining)
         {
@@ -38,6 +41,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(exercisesInTraining);
         }
 
+
+        // (PUT) - Calls the ExerciseInTrainingService to update an exercise-in-training by id.
         [HttpPut("{id}")]
         public IActionResult UpdateExerciseInTraining(int id, [FromBody] UpdateExerciseInTrainingDto request)
         {
@@ -49,6 +54,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(updatedExerciseInTraining);
         }
 
+
+        // (DELETE) - Calls the ExerciseInTrainingService to delete an exercise-in-training by id.
         [HttpDelete("{id}")]
         public IActionResult DeleteExerciseInTraining(int id)
         {
@@ -60,13 +67,15 @@ namespace Gym.WebAPI.Controllers
             return NoContent();
         }
 
+
+        // (POST) - Calls the ExerciseInTrainingService to create a new exercise-in-training.
         [HttpPost]
         public IActionResult CreateExerciseInTraining([FromBody] CreateExerciseInTrainingDto request)
         {
-            var createdExerciseInTraining = _exerciseInTrainingService.CreateExerciseInTraining(request.Sets, 
-                                                                                                request.Reps, 
-                                                                                                request.Order, 
-                                                                                                request.IdExercise, 
+            var createdExerciseInTraining = _exerciseInTrainingService.CreateExerciseInTraining(request.Sets,
+                                                                                                request.Reps,
+                                                                                                request.Order,
+                                                                                                request.IdExercise,
                                                                                                 request.IdTraining);
             return CreatedAtAction(nameof(GetExerciseInTraining), new { id = createdExerciseInTraining.Id }, createdExerciseInTraining);
         }

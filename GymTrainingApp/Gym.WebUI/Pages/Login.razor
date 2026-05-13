@@ -1,5 +1,6 @@
 ﻿@page "/login"
 @using System.ComponentModel.DataAnnotations
+@using Gym.WebUI.Contexts
 
 <h3>Login</h3>
 
@@ -46,6 +47,8 @@
     private bool isSubmitting;
     private string? errorMessage;
 
+
+    // Handle the login process, send credentials to the API
     private async Task LoginAsync()
     {
         isSubmitting = true;
@@ -53,6 +56,8 @@
 
         try
         {
+
+            // Send request to API
             var sendRequest = new UserLoginDto(loginModel.Username, loginModel.Password);
             var response = await Http.PostAsJsonAsync("api/user/login", sendRequest);
 
@@ -66,6 +71,7 @@
                     return;
                 }
 
+                // Store user info in the global context
                 UserContext.SetUserId(loginResponse.Id);
                 AlertContext.SetSuccessMessage("Login successful.");
                 Navigation.NavigateTo("/");

@@ -1,14 +1,15 @@
-﻿using Gym.Models.Interfaces;
-using Gym.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Gym.Models.Database;
+using Gym.Models.Data;
 using Gym.Business.Factories;
 using Gym.Business.AOPStrategies;
-using Gym.Business.Interfaces;
+using Gym.Models.ExerciseInTrainingEntity;
+using Gym.Models.ExerciseEntity;
+using Gym.Models.TrainingTypeSequenceEntity;
+using Gym.Business.Services.ExerciseInTrainingService;
 
 namespace Gym.Business.TrainingGenerator
 {

@@ -1,4 +1,5 @@
 using Gym.WebUI;
+using Gym.WebUI.Contexts;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

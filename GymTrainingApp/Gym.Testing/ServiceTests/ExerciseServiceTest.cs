@@ -1,9 +1,8 @@
-using Gym.Business.Services;
-using Gym.Models.Entities;
-using Gym.Models.Interfaces;
 using Gym.Business;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Gym.Models.ExerciseEntity;
+using Gym.Business.Services.ExerciseService;
 
 namespace Gym.Tests.ServiceTests
 {

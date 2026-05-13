@@ -1,5 +1,7 @@
 ﻿using Gym.Business;
-using Gym.Business.Interfaces;
+using Gym.Business.Services.AimOfPLanService;
+using Gym.Business.Services.TrainingPlanService;
+using Gym.Business.Services.TrainingTypeService;
 using Gym.UI.ConsoleUI.Interfaces;
 using System;
 using System.Collections.Generic;

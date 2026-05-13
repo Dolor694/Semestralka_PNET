@@ -1,6 +1,6 @@
 using Gym.Business.TrainingGenerator;
-using Gym.Models.Entities;
-using Gym.Models.Interfaces;
+using Gym.Models.ExerciseEntity;
+using Gym.Models.MuscleEntity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

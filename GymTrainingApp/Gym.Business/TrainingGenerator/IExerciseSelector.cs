@@ -1,4 +1,4 @@
-﻿using Gym.Models.Entities;
+﻿using Gym.Models.ExerciseEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

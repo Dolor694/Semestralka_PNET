@@ -1,4 +1,5 @@
-﻿<CascadingValue Value="@userContext">
+﻿@using Gym.WebUI.Contexts
+<CascadingValue Value="@userContext">
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
             <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />

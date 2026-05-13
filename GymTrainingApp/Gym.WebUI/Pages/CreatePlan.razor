@@ -1,5 +1,6 @@
 @page "/plans/create"
 @using System.ComponentModel.DataAnnotations
+@using Gym.WebUI.Contexts
 
 <PageTitle>Create Plan</PageTitle>
 
@@ -10,58 +11,68 @@
                 <div class="card-body">
                     <h3 class="card-title mb-3">Create Training Plan</h3>
 
-                    <EditForm Model="@model" OnValidSubmit="@CreatePlanAsync">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary />
-
-                        <div class="mb-3">
-                            <label for="planName" class="form-label">Plan name</label>
-                            <InputText id="planName" class="form-control" @bind-Value="model.PlanName" />
-                            <ValidationMessage For="@(() => model.PlanName)" />
+                    @if (isLoadingOptions)
+                    {
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <span>Loading plan options...</span>
                         </div>
+                    }
+                    else
+                    {
+                        <EditForm Model="@model" OnValidSubmit="@CreatePlanAsync">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
 
-                        <div class="mb-3">
-                            <label for="trainingFrequency" class="form-label">Training frequency (days/week)</label>
-                            <InputNumber id="trainingFrequency" class="form-control" @bind-Value="model.TrainingFrequency" />
-                            <ValidationMessage For="@(() => model.TrainingFrequency)" />
-                        </div>
+                            <div class="mb-3">
+                                <label for="planName" class="form-label">Plan name</label>
+                                <InputText id="planName" class="form-control" @bind-Value="model.PlanName" />
+                                <ValidationMessage For="@(() => model.PlanName)" />
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="trainingType" class="form-label">Type</label>
-                            <InputSelect id="trainingType" class="form-select" @bind-Value="model.IdTrainingType">
-                                @foreach (var type in trainingTypes)
-                                {
-                                    <option value="@type.Id">@type.Name</option>
-                                }
-                            </InputSelect>
-                            <ValidationMessage For="@(() => model.IdTrainingType)" />
-                        </div>
+                            <div class="mb-3">
+                                <label for="trainingFrequency" class="form-label">Training frequency (days/week)</label>
+                                <InputNumber id="trainingFrequency" class="form-control" @bind-Value="model.TrainingFrequency" />
+                                <ValidationMessage For="@(() => model.TrainingFrequency)" />
+                            </div>
 
-                        <div class="mb-4">
-                            <label for="aimOfTraining" class="form-label">Aim</label>
-                            <InputSelect id="aimOfTraining" class="form-select" @bind-Value="model.IdAimOfTraining">
-                                @foreach (var aim in aimsOfTraining)
-                                {
-                                    <option value="@aim.Id">@aim.Name</option>
-                                }
-                            </InputSelect>
-                            <ValidationMessage For="@(() => model.IdAimOfTraining)" />
-                        </div>
+                            <div class="mb-3">
+                                <label for="trainingType" class="form-label">Type</label>
+                                <InputSelect id="trainingType" class="form-select" @bind-Value="model.IdTrainingType">
+                                    @foreach (var type in trainingTypes)
+                                    {
+                                        <option value="@type.Id">@type.Name</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => model.IdTrainingType)" />
+                            </div>
 
-                        @if (!string.IsNullOrWhiteSpace(errorMessage))
-                        {
-                            <div class="alert alert-danger">@errorMessage</div>
-                        }
+                            <div class="mb-4">
+                                <label for="aimOfTraining" class="form-label">Aim</label>
+                                <InputSelect id="aimOfTraining" class="form-select" @bind-Value="model.IdAimOfTraining">
+                                    @foreach (var aim in aimsOfTraining)
+                                    {
+                                        <option value="@aim.Id">@aim.Name</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => model.IdAimOfTraining)" />
+                            </div>
 
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-outline-secondary" @onclick="GoBackToPlans">
-                                Back
-                            </button>
-                            <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
-                                @(isSubmitting ? "Creating..." : "Create Plan")
-                            </button>
-                        </div>
-                    </EditForm>
+                            @if (!string.IsNullOrWhiteSpace(errorMessage))
+                            {
+                                <div class="alert alert-danger">@errorMessage</div>
+                            }
+
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-secondary" @onclick="GoBackToPlans">
+                                    Back
+                                </button>
+                                <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
+                                    @(isSubmitting ? "Creating..." : "Create Plan")
+                                </button>
+                            </div>
+                        </EditForm>
+                    }
                 </div>
             </div>
         </div>
@@ -83,30 +94,85 @@
 
     private readonly CreatePlanFormModel model = new();
     private bool isSubmitting;
+    private bool isLoadingOptions = true;
     private string? errorMessage;
 
-    private readonly List<SelectItem> trainingTypes =
-    [
-        new SelectItem(1, "Full Body"),
-        new SelectItem(2, "Upper Lower"),
-        new SelectItem(3, "Push Pull Legs")
-    ];
+    private readonly List<SelectItem> trainingTypes = [];
+    private readonly List<SelectItem> aimsOfTraining = [];
 
-    private readonly List<SelectItem> aimsOfTraining =
-    [
-        new SelectItem(1, "Build Muscle"),
-        new SelectItem(2, "Build Strength"),
-        new SelectItem(3, "Lose Weight")
-    ];
 
-    protected override void OnInitialized()
+    // Check if user is logged in and load options for the training types and aims of training
+    protected override async Task OnInitializedAsync()
     {
         if (!UserContext.IsLoggedIn || !UserContext.UserId.HasValue)
         {
             Navigation.NavigateTo("/login");
+            return;
+        }
+
+        await LoadPlanOptionsAsync();
+    }
+
+
+
+    // Load training types and aims of training from the API for the dropdowns.
+    private async Task LoadPlanOptionsAsync()
+    {
+        isLoadingOptions = true;
+        errorMessage = null;
+        trainingTypes.Clear();
+        aimsOfTraining.Clear();
+
+        try
+        {
+            var trainingTypeResponse = await Http.GetFromJsonAsync<List<TrainingTypeApiDto>>("api/trainingtype");
+            var aimOfPlanResponse = await Http.GetFromJsonAsync<List<AimOfPlanApiDto>>("api/aimofplan");
+
+            if (trainingTypeResponse is not null)
+            {
+                foreach (var item in trainingTypeResponse)
+                {
+                    trainingTypes.Add(new SelectItem(item.Id, item.Name));
+                }
+            }
+
+            if (aimOfPlanResponse is not null)
+            {
+                foreach (var item in aimOfPlanResponse)
+                {
+                    aimsOfTraining.Add(new SelectItem(item.Id, item.Description));
+                }
+            }
+
+            // Set default selected values if options are available
+            if (trainingTypes.Count > 0)
+            {
+                model.IdTrainingType = trainingTypes[0].Id;
+            }
+
+            if (aimsOfTraining.Count > 0)
+            {
+                model.IdAimOfTraining = aimsOfTraining[0].Id;
+            }
+
+            // Set error message if either list is empty
+            if (trainingTypes.Count == 0 || aimsOfTraining.Count == 0)
+            {
+                errorMessage = "Failed to load training types or aims.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to load training plan options: {ex.Message}";
+        }
+        finally
+        {
+            isLoadingOptions = false;
         }
     }
 
+
+    // On submit, send the data to the API to create a new training plan.
     private async Task CreatePlanAsync()
     {
         errorMessage = null;
@@ -114,12 +180,15 @@
 
         try
         {
+
+            // Sanity check - user should be logged in
             if (!UserContext.UserId.HasValue)
             {
                 errorMessage = "You must be logged in to create a plan.";
                 return;
             }
 
+            // Create the request object
             var request = new CreateTrainingPlanRequest(
                 model.PlanName,
                 model.TrainingFrequency,
@@ -127,6 +196,7 @@
                 model.IdTrainingType,
                 model.IdAimOfTraining);
 
+            // Send the request
             var response = await Http.PostAsJsonAsync("api/trainingplan/create", request);
 
             if (response.IsSuccessStatusCode)
@@ -151,6 +221,7 @@
         }
     }
 
+    // Navigate back to the plans list page on button click.
     private void GoBackToPlans()
     {
         Navigation.NavigateTo("/plans");
@@ -173,6 +244,10 @@
     }
 
     private sealed record SelectItem(int Id, string Name);
+
+    private sealed record TrainingTypeApiDto(int Id, string Name);
+
+    private sealed record AimOfPlanApiDto(int Id, string Description);
 
     private sealed record CreateTrainingPlanRequest(
         string PlanName,

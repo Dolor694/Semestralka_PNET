@@ -1,6 +1,5 @@
-using Gym.Business.Services;
-using Gym.Models.Entities;
-using Gym.Models.Interfaces;
+using Gym.Business.Services.TrainingPlanService;
+using Gym.Models.TrainingPlanEntity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -17,8 +16,8 @@ namespace Gym.Tests.ServiceTests
         {
             _plans =
             [
-                new TrainingPlan { Id = 1, PlanName = "Plan A", TrainingFrequency = 3, IdUser = 1, IdTrainingType = 1, IdAimOfTraining = 1, DateOfCreation = DateOnly.FromDateTime(DateTime.Now) },
-                new TrainingPlan { Id = 2, PlanName = "Plan B", TrainingFrequency = 4, IdUser = 1, IdTrainingType = 1, IdAimOfTraining = 2, DateOfCreation = DateOnly.FromDateTime(DateTime.Now) }
+                new TrainingPlan { Id = 1, Name = "Plan A", TrainingFrequency = 3, IdUser = 1, IdTrainingType = 1, IdAimOfTraining = 1, DateOfCreation = DateOnly.FromDateTime(DateTime.Now) },
+                new TrainingPlan { Id = 2, Name = "Plan B", TrainingFrequency = 4, IdUser = 1, IdTrainingType = 1, IdAimOfTraining = 2, DateOfCreation = DateOnly.FromDateTime(DateTime.Now) }
             ];
 
             var repoMock = new Mock<ITrainingPlanRepository>();

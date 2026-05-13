@@ -1,5 +1,4 @@
-﻿using Gym.Business.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Gym.Business.Services.ExerciseService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gym.WebAPI.Controllers
@@ -16,6 +15,28 @@ namespace Gym.WebAPI.Controllers
         }
 
 
+        // (GET) - Calls the ExerciseService to get an exercise by id.
+        [HttpGet("detail/{id}")]
+        public IActionResult GetExerciseById(int id)
+        {
+            try
+            {
+                var exercise = _exerciseService.GetExerciseById(id);
+                if (exercise == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(exercise);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        // (GET) - Calls the ExerciseService to get all exercises by muscle group id.
         [HttpGet("{idMuscleGroup}")]
         public IActionResult GetExercisesByMuscleGroup(int idMuscleGroup)
         {

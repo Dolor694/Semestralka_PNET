@@ -1,4 +1,6 @@
-﻿@implements IDisposable
+﻿@using Gym.WebUI.Contexts
+@implements IDisposable
+@inject NavigationManager Navigation
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -10,34 +12,53 @@
 </div>
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
+    <nav class="d-flex flex-column h-100">
+        <div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                </NavLink>
+            </div>
+
+            @if (UserContext == null || !UserContext.IsLoggedIn)
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="register">
+                        <span class="bi bi-person-add-fill-nav-menu" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="login">
+                        <span class="bi bi-person-check-fill-nav-menu" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            }
+            else
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="plans">
+                        <span class="bi bi-card-list-fill-nav-menu" aria-hidden="true"></span> Plans
+                    </NavLink>
+                </div>
+            }
         </div>
 
-    @if (UserContext == null || !UserContext.IsLoggedIn)
-    {
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="register">
-                <span class="bi bi-person-add" aria-hidden="true"></span> Register
-            </NavLink>
+        <div class="mt-auto">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="profile">
+                    <span class="bi bi-person-circle-fill-nav-menu" aria-hidden="true"></span> Profile Manager
+                </NavLink>
+            </div>
+
+            @if (UserContext is not null && UserContext.IsLoggedIn)
+            {
+                <div class="nav-item px-3">
+                    <a class="nav-link" href="" @onclick="LogoutAsync" @onclick:preventDefault="true">
+                        <span class="bi bi-box-arrow-right-nav-menu" aria-hidden="true"></span> Logout
+                    </a>
+                </div>
+            }
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="login">
-                <span class="bi bi-person-check" aria-hidden="true"></span> Login
-            </NavLink>
-        </div>
-    } 
-    else
-    {
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="plans">
-                <span class="bi bi-card-list" aria-hidden="true"></span> Plans
-            </NavLink>
-        </div>
-    }
     </nav>
 </div>
 
@@ -69,6 +90,12 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void LogoutAsync()
+    {
+        UserContext?.Clear();
+        Navigation.NavigateTo("/", true);
     }
 
     // Unsubscribe from the event on disposal

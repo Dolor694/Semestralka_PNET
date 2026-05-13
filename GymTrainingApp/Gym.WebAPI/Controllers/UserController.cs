@@ -1,4 +1,4 @@
-﻿using Gym.Business.Interfaces;
+﻿using Gym.Business.Services.UserService;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,8 @@ namespace Gym.WebAPI.Controllers
             _userService = userService;
         }
 
-        // GET: api/User
+
+        // (GET) - Calls the UserService to get a user by id.
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
@@ -28,7 +29,7 @@ namespace Gym.WebAPI.Controllers
         }
 
 
-        // POST: api/users/login
+        // (POST) - Calls the UserService to authenticate a user with username and password.
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
@@ -37,7 +38,7 @@ namespace Gym.WebAPI.Controllers
         }
 
 
-        // POST: api/users/register
+        // (POST) - Calls the UserService to register a new user.
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserRegisterDto request)
         {
@@ -53,13 +54,13 @@ namespace Gym.WebAPI.Controllers
         }
 
 
-        // PUT: api/users/update-weight
+        // (PUT) - Calls the UserService to update user data.
         [HttpPut("update")]
         public IActionResult UpdateUser([FromBody] UserUpdateDto updateData)
         {
             try
             {
-                var updated = _userService.UpdateUser(updateData.Id, updateData.Username, null, updateData.Weight);
+                var updated = _userService.UpdateUser(updateData.Id, updateData.Username, updateData.Password, updateData.Weight);
                 return Ok(updated);
             }
             catch (Exception ex)
@@ -70,8 +71,6 @@ namespace Gym.WebAPI.Controllers
     }
 }
 
-
-// Helper records for the UserController
 public record LoginRequest(string Username, string Password);
-public record UserUpdateDto(int Id, string? Username, double? Weight);
+public record UserUpdateDto(int Id, string? Username, string? Password, double? Weight);
 public record UserRegisterDto(string Username, string Password, double Weight);

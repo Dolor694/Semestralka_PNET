@@ -1,5 +1,5 @@
-﻿using Gym.Business.Interfaces;
-using Gym.Business.Services;
+﻿using Gym.Business.Services;
+using Gym.Business.Services.TrainingService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +16,8 @@ namespace Gym.WebAPI.Controllers
             _trainingService = trainingService;
         }
 
+
+        // (GET) - Calls the TrainingService to get a training by id.
         [HttpGet("{id}")]
         public IActionResult GetTrainingById(int id)
         {
@@ -27,6 +29,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(training);
         }
 
+
+        // (GET) - Calls the TrainingService to get all trainings for a plan by plan id.
         [HttpGet("plan/{idPlan}")]
         public IActionResult GetAllTrainingsByPlanId(int idPlan)
         {
@@ -38,6 +42,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(trainings);
         }
 
+
+        // (POST) - Calls the TrainingService to create a new training for a plan id.
         [HttpPost]
         public IActionResult CreateTraining(int idPlan)
         {
@@ -45,10 +51,20 @@ namespace Gym.WebAPI.Controllers
             {
                 return BadRequest();
             }
+
             var createdTraining = _trainingService.CreateTraining(idPlan);
-            return CreatedAtAction(nameof(GetTrainingById), new { id = createdTraining.Id }, createdTraining);
+            var createdTrainingDto = _trainingService.GetTrainingById(createdTraining.Id);
+
+            if (createdTrainingDto == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Training was created but could not be loaded.");
+            }
+
+            return CreatedAtAction(nameof(GetTrainingById), new { id = createdTraining.Id }, createdTrainingDto);
         }
 
+
+        // (PUT) - Calls the TrainingService to update a training by id.
         [HttpPut("{id}")]
         public IActionResult UpdateTraining(int id, [FromBody] UpdateTrainingDto request)
         {
@@ -60,6 +76,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(updatedTraining);
         }
 
+
+        // (DELETE) - Calls the TrainingService to delete a training by id.
         [HttpDelete("{id}")]
         public IActionResult DeleteTraining(int id)
         {
@@ -72,6 +90,5 @@ namespace Gym.WebAPI.Controllers
         }
     }
 }
-
 
 public record UpdateTrainingDto(DateOnly Date, int IdTrainingTypeSequence);

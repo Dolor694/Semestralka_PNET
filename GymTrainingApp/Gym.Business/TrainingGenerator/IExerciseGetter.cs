@@ -1,10 +1,9 @@
-﻿using Gym.Models.Interfaces;
-using Gym.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gym.Models.ExerciseEntity;
 
 namespace Gym.Business.TrainingGenerator
 {

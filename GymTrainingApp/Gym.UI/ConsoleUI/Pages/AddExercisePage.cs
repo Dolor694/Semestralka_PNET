@@ -1,5 +1,7 @@
 using Gym.Business;
-using Gym.Business.Interfaces;
+using Gym.Business.Services.ExerciseService;
+using Gym.Business.Services.ExerciseInTrainingService;
+using Gym.Business.Services.MuscleGroupService;
 using Gym.UI.ConsoleUI.Interfaces;
 using System;
 using System.Collections.Generic;

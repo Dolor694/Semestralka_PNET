@@ -1,5 +1,6 @@
 ﻿@page "/plans"
 @using System.ComponentModel.DataAnnotations
+@using Gym.WebUI.Contexts
 
 <PageTitle>My Plans</PageTitle>
 
@@ -159,11 +160,15 @@
     private PlanCardViewModel? planToDelete;
     private PlanUpdateFormModel? planToUpdate;
 
+    // Call to load plans when the component is initialized to show all plans
     protected override async Task OnInitializedAsync()
     {
         await LoadPlansAsync();
     }
 
+
+
+    // Call to the API to get all of the users plans
     private async Task LoadPlansAsync()
     {
         isLoading = true;
@@ -206,17 +211,23 @@
         }
     }
 
+
+    // Setup for the delete
     private void AskForDelete(PlanCardViewModel plan)
     {
         planToUpdate = null;
         planToDelete = plan;
     }
 
+
+    // Cancel the delete
     private void CancelDelete()
     {
         planToDelete = null;
     }
 
+
+    // Call to the API to delete the plan
     private async Task ConfirmDeleteAsync()
     {
         if (planToDelete is null)
@@ -252,6 +263,8 @@
         }
     }
 
+
+    // Setup for the update
     private void AskForUpdate(PlanCardViewModel plan)
     {
         planToDelete = null;
@@ -265,12 +278,16 @@
         };
     }
 
+
+    // Cancel the update
     private void CancelUpdate()
     {
         planToUpdate = null;
         Navigation.NavigateTo("/plans");
     }
 
+
+    // Call to the API to update the plan
     private async Task SaveUpdateAsync()
     {
         if (planToUpdate is null)
@@ -331,16 +348,22 @@
         }
     }
 
+
+    // Go to the page for creating a plan
     private void GoToCreatePlan()
     {
         Navigation.NavigateTo("/plans/create");
     }
 
+
+    // Go to the page that shows the trainings for the plan
     private void GoToTrainings(int trainingPlanId)
     {
         Navigation.NavigateTo($"/trainings/{trainingPlanId}");
     }
 
+
+    // Get training type name by id
     private static string GetTrainingTypeName(int idTrainingType)
     {
         return idTrainingType switch
@@ -352,6 +375,8 @@
         };
     }
 
+
+    // Get aim of training name by id
     private static string GetAimName(int idAimOfTraining)
     {
         return idAimOfTraining switch

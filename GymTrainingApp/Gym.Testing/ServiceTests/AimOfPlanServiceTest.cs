@@ -1,9 +1,8 @@
-using Gym.Business.Services;
-using Gym.Models.Entities;
-using Gym.Models.Interfaces;
 using Gym.Business;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Gym.Models.AimOfPlanEntity;
+using Gym.Business.Services.AimOfPLanService;
 
 namespace Gym.Tests.ServiceTests
 {
@@ -18,8 +17,8 @@ namespace Gym.Tests.ServiceTests
         {
             _aims =
             [
-                new AimOfPlan { Id = 1, Description = "Strength" },
-                new AimOfPlan { Id = 2, Description = "Hypertrophy" }
+                new AimOfPlan { Id = 1, Name = "Strength" },
+                new AimOfPlan { Id = 2, Name = "Hypertrophy" }
             ];
 
             // Fake repository

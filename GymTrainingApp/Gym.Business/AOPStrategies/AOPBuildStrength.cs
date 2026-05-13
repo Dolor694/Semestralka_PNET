@@ -1,5 +1,6 @@
 ﻿using Gym.Business.TrainingGenerator;
-using Gym.Models.Entities;
+using Gym.Models.ExerciseEntity;
+using Gym.Models.ExerciseInTrainingEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Gym.Business.AOPStrategies
         {
             _exerciseMapper = new ExerciseMapper();
         }
+
         public List<ExerciseInTraining> SetParametersOfExercises(List<Exercise> exercises, int idTraining)
         {
             Random random = new Random();

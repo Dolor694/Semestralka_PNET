@@ -4,7 +4,7 @@
 
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="mb-0">Trainings in Plan #@PlanId</h3>
+        <h3 class="mb-0">Trainings in Plan: @planName</h3>
         <button type="button" class="btn btn-outline-secondary" @onclick="GoBackToPlans">Back to Plans</button>
     </div>
 
@@ -27,14 +27,20 @@
                 <div class="col-12 col-md-6 col-xl-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Training #@training.Id</h5>
+                            <h5 class="card-title">Training @training.Id</h5>
                             <p class="mb-2"><strong>Date:</strong> @training.Date.ToString("yyyy-MM-dd")</p>
-                            <p class="mb-3"><strong>Sequence:</strong> @training.IdTrainingTypeSequence</p>
+                            <p class="mb-3"><strong>Muscle Group:</strong> @GetMuscleGroupName(training.IdTrainingTypeSequence)</p>
 
                             <div class="mt-auto d-grid gap-2">
-                                <button type="button" class="btn btn-outline-secondary" disabled>Update</button>
-                                <button type="button" class="btn btn-outline-danger" disabled>Delete</button>
-                                <button type="button" class="btn btn-primary" disabled>Open</button>
+                                <button type="button"
+                                        class="btn btn-outline-danger"
+                                        @onclick="() => AskForDeleteTraining(training)"
+                                        disabled="@isDeletingTraining">
+                                    Delete
+                                </button>
+                                <button type="button" class="btn btn-primary" @onclick="() => OpenTrainingAsync(training)">
+                                    Open
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -46,8 +52,8 @@
                     <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                         <h5 class="card-title">Generate New Training</h5>
                         <p class="text-muted mb-3">Generate a new training.</p>
-                        <button type="button" class="btn btn-primary" disabled>
-                            + Generate Training
+                        <button type="button" class="btn btn-primary" @onclick="GenerateTrainingAsync" disabled="@isGenerating">
+                            @(isGenerating ? "Generating..." : "+ Generate Training")
                         </button>
                     </div>
                 </div>
@@ -55,6 +61,145 @@
         </div>
     }
 </div>
+
+@if (openedTraining is not null)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Training @openedTraining.Id</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="CloseTrainingModal"></button>
+                </div>
+
+                <div class="modal-body">
+                    @if (isExercisesLoading)
+                    {
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <span>Loading exercises...</span>
+                        </div>
+                    }
+                    else if (!string.IsNullOrWhiteSpace(exercisesErrorMessage))
+                    {
+                        <div class="alert alert-danger">@exercisesErrorMessage</div>
+                    }
+                    else if (openedExercises.Count == 0)
+                    {
+                        <div class="alert alert-info mb-0">No exercises in this training yet.</div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 90px;">Order</th>
+                                        <th>Exercise</th>
+                                        <th style="width: 120px;">Sets</th>
+                                        <th style="width: 120px;">Reps</th>
+                                        <th style="width: 140px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var exercise in openedExercises.OrderBy(e => e.Order))
+                                    {
+                                        <tr>
+                                            <td>@exercise.Order</td>
+                                            <td>
+                                                @if (exercise.IsNew)
+                                                {
+                                                    <InputSelect Value="exercise.IdExercise"
+                                                                 ValueChanged="@(EventCallback.Factory.Create<int>(this, value => OnExerciseChanged(exercise, value)))"
+                                                                 ValueExpression="() => exercise.IdExercise"
+                                                                 class="form-select">
+                                                        @foreach (var option in availableExercises)
+                                                        {
+                                                            <option value="@option.Id">@option.Name</option>
+                                                        }
+                                                    </InputSelect>
+                                                }
+                                                else
+                                                {
+                                                    @exercise.ExerciseName
+                                                }
+                                            </td>
+                                            <td>
+                                                <InputNumber Value="exercise.Sets"
+                                                             ValueChanged="@(EventCallback.Factory.Create<int>(this, value => OnSetsChanged(exercise, value)))"
+                                                             ValueExpression="() => exercise.Sets"
+                                                             class="form-control"
+                                                             min="1"
+                                                             max="20" />
+                                            </td>
+                                            <td>
+                                                <InputNumber Value="exercise.Reps"
+                                                             ValueChanged="@(EventCallback.Factory.Create<int>(this, value => OnRepsChanged(exercise, value)))"
+                                                             ValueExpression="() => exercise.Reps"
+                                                             class="form-control"
+                                                             min="1"
+                                                             max="20" />
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveExercise(exercise)">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+
+                    <div class="mt-3">
+                        <button type="button"
+                                class="btn btn-outline-primary"
+                                @onclick="AddExerciseRowAsync"
+                                disabled="@isExercisesLoading">
+                            + Add exercise
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-primary"
+                            @onclick="SaveChangesAsync"
+                            disabled="@(isExercisesLoading || isSaving)">
+                        @(isSaving ? "Saving..." : "Save changes")
+                    </button>
+                    <button type="button" class="btn btn-secondary" @onclick="CloseTrainingModal">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (trainingToDelete is not null)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete training</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="CancelDeleteTraining"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">
+                        Are you sure you want to delete <strong>Training @trainingToDelete.Id</strong>?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelDeleteTraining" disabled="@isDeletingTraining">Back</button>
+                    <button type="button" class="btn btn-danger" @onclick="ConfirmDeleteTrainingAsync" disabled="@isDeletingTraining">
+                        @(isDeletingTraining ? "Deleting..." : "Delete")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
     [Parameter]
@@ -68,11 +213,42 @@
 
     private readonly List<TrainingDto> trainings = [];
     private bool isLoading = true;
+    private bool isGenerating;
     private string? errorMessage;
+    private string planName = string.Empty;
+
+    private readonly Dictionary<int, string> muscleGroupBySequenceId = [];
+    private readonly Dictionary<int, int> muscleGroupIdBySequenceId = [];
+
+    private TrainingDto? openedTraining;
+    private readonly List<ExerciseInTrainingViewModel> openedExercises = [];
+    private readonly List<ExerciseOptionDto> availableExercises = [];
+    private bool isExercisesLoading;
+    private string? exercisesErrorMessage;
+    private bool hasPendingChanges;
+
+    private bool isSaving;
+    private readonly List<int> deletedExerciseIds = [];
+    private bool isDeletingTraining;
+    private TrainingDto? trainingToDelete;
 
     protected override async Task OnParametersSetAsync()
     {
+        await LoadPlanNameAsync();
         await LoadTrainingsAsync();
+    }
+
+    private async Task LoadPlanNameAsync()
+    {
+        try
+        {
+            var plan = await Http.GetFromJsonAsync<TrainingPlanDto>($"api/trainingplan/{PlanId}");
+            planName = plan?.PlanName ?? $"Plan {PlanId}";
+        }
+        catch
+        {
+            planName = $"Plan {PlanId}";
+        }
     }
 
     private async Task LoadTrainingsAsync()
@@ -102,6 +278,7 @@
             if (result is not null)
             {
                 trainings.AddRange(result);
+                await LoadMuscleGroupNamesAsync(result);
             }
         }
         catch (Exception ex)
@@ -114,10 +291,467 @@
         }
     }
 
+    private async Task LoadMuscleGroupNamesAsync(IEnumerable<TrainingDto> source)
+    {
+        var sequenceIds = source
+            .Select(t => t.IdTrainingTypeSequence)
+            .Distinct()
+            .Where(id => !muscleGroupBySequenceId.ContainsKey(id))
+            .ToList();
+
+        foreach (var sequenceId in sequenceIds)
+        {
+            try
+            {
+                var sequence = await Http.GetFromJsonAsync<TrainingTypeSequenceDto>($"api/trainingtypesequence/{sequenceId}");
+                if (sequence is null)
+                {
+                    muscleGroupBySequenceId[sequenceId] = "Unknown";
+                    continue;
+                }
+
+                muscleGroupIdBySequenceId[sequenceId] = sequence.IdMuscleGroup;
+
+                var group = await Http.GetFromJsonAsync<MuscleGroupDto>($"api/musclegroup/{sequence.IdMuscleGroup}");
+                muscleGroupBySequenceId[sequenceId] = group?.Name ?? "Unknown";
+            }
+            catch
+            {
+                muscleGroupBySequenceId[sequenceId] = "Unknown";
+            }
+        }
+    }
+
+    private string GetMuscleGroupName(int sequenceId)
+    {
+        return muscleGroupBySequenceId.TryGetValue(sequenceId, out var name)
+            ? name
+            : "Unknown";
+    }
+
+    private async Task GenerateTrainingAsync()
+    {
+        isGenerating = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await Http.PostAsync($"api/training?idPlan={PlanId}", null);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                errorMessage = $"Failed to generate training ({(int)response.StatusCode}).";
+                return;
+            }
+
+            await LoadTrainingsAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to generate training: {ex.Message}";
+        }
+        finally
+        {
+            isGenerating = false;
+        }
+    }
+
+    private async Task OpenTrainingAsync(TrainingDto training)
+    {
+        openedTraining = training;
+        openedExercises.Clear();
+        availableExercises.Clear();
+        deletedExerciseIds.Clear();
+        exercisesErrorMessage = null;
+        isExercisesLoading = true;
+        hasPendingChanges = false;
+
+        try
+        {
+            var response = await Http.GetAsync($"api/exerciseintraining/training/{training.Id}");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                await LoadAvailableExercisesForTrainingAsync(training.IdTrainingTypeSequence);
+                isExercisesLoading = false;
+                return;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                exercisesErrorMessage = $"Failed to load exercises ({(int)response.StatusCode}).";
+                isExercisesLoading = false;
+                return;
+            }
+
+            var items = await response.Content.ReadFromJsonAsync<List<ExerciseInTrainingDto>>();
+            if (items is not null)
+            {
+                var models = items
+                    .OrderBy(x => x.Order)
+                    .Select(x => new ExerciseInTrainingViewModel
+                    {
+                        Id = x.Id,
+                        Sets = Math.Clamp(x.Sets, 1, 20),
+                        Reps = Math.Clamp(x.Reps, 1, 20),
+                        Order = x.Order,
+                        IdExercise = x.IdExercise,
+                        IdTraining = x.IdTraining,
+                        ExerciseName = $"Exercise {x.IdExercise}",
+                        IsNew = false
+                    })
+                    .ToList();
+
+                openedExercises.AddRange(models);
+                await LoadExerciseNamesAsync(models);
+            }
+
+            await LoadAvailableExercisesForTrainingAsync(training.IdTrainingTypeSequence);
+        }
+        catch (Exception ex)
+        {
+            exercisesErrorMessage = $"Failed to load exercises: {ex.Message}";
+        }
+        finally
+        {
+            isExercisesLoading = false;
+        }
+    }
+
+    private async Task LoadAvailableExercisesForTrainingAsync(int sequenceId)
+    {
+        availableExercises.Clear();
+
+        try
+        {
+            int muscleGroupId;
+
+            if (!muscleGroupIdBySequenceId.TryGetValue(sequenceId, out muscleGroupId))
+            {
+                var sequence = await Http.GetFromJsonAsync<TrainingTypeSequenceDto>($"api/trainingtypesequence/{sequenceId}");
+                if (sequence is null)
+                {
+                    return;
+                }
+
+                muscleGroupId = sequence.IdMuscleGroup;
+                muscleGroupIdBySequenceId[sequenceId] = muscleGroupId;
+            }
+
+            var options = await Http.GetFromJsonAsync<List<ExerciseOptionDto>>($"api/exercise/{muscleGroupId}");
+            if (options is not null)
+            {
+                availableExercises.AddRange(options.OrderBy(x => x.Name));
+            }
+        }
+        catch
+        {
+        }
+    }
+
+    private async Task LoadExerciseNamesAsync(List<ExerciseInTrainingViewModel> models)
+    {
+        var uniqueIds = models.Select(m => m.IdExercise).Distinct().ToList();
+
+        foreach (var exerciseId in uniqueIds)
+        {
+            try
+            {
+                var exercise = await Http.GetFromJsonAsync<ExerciseDto>($"api/exercise/detail/{exerciseId}");
+                if (exercise is null)
+                {
+                    continue;
+                }
+
+                foreach (var row in models.Where(m => m.IdExercise == exerciseId))
+                {
+                    row.ExerciseName = exercise.Name;
+                }
+            }
+            catch
+            {
+            }
+        }
+    }
+
+    private void AddExerciseRow()
+    {
+        if (openedTraining is null || availableExercises.Count == 0)
+        {
+            return;
+        }
+
+        var nextOrder = openedExercises.Count == 0
+            ? 1
+            : openedExercises.Max(x => x.Order) + 1;
+
+        var defaultExercise = availableExercises.First();
+
+        openedExercises.Add(new ExerciseInTrainingViewModel
+        {
+            Id = 0,
+            Sets = 3,
+            Reps = 10,
+            Order = nextOrder,
+            IdExercise = defaultExercise.Id,
+            IdTraining = openedTraining.Id,
+            ExerciseName = defaultExercise.Name,
+            IsNew = true
+        });
+
+        hasPendingChanges = true;
+    }
+
+    private async Task AddExerciseRowAsync()
+    {
+        if (openedTraining is null)
+        {
+            return;
+        }
+
+        if (availableExercises.Count == 0)
+        {
+            await LoadAvailableExercisesForTrainingAsync(openedTraining.IdTrainingTypeSequence);
+        }
+
+        if (availableExercises.Count == 0)
+        {
+            exercisesErrorMessage = "No exercises are available for this muscle group.";
+            return;
+        }
+
+        var nextOrder = openedExercises.Count == 0
+            ? 1
+            : openedExercises.Max(x => x.Order) + 1;
+
+        var defaultExercise = availableExercises.First();
+
+        openedExercises.Add(new ExerciseInTrainingViewModel
+        {
+            Id = 0,
+            Sets = 3,
+            Reps = 10,
+            Order = nextOrder,
+            IdExercise = defaultExercise.Id,
+            IdTraining = openedTraining.Id,
+            ExerciseName = defaultExercise.Name,
+            IsNew = true
+        });
+
+        hasPendingChanges = true;
+    }
+
+    private void OnExerciseChanged(ExerciseInTrainingViewModel exercise, int selectedExerciseId)
+    {
+        if (exercise.IdExercise == selectedExerciseId)
+        {
+            return;
+        }
+
+        exercise.IdExercise = selectedExerciseId;
+        exercise.ExerciseName = availableExercises.FirstOrDefault(x => x.Id == selectedExerciseId)?.Name ?? $"Exercise {selectedExerciseId}";
+        hasPendingChanges = true;
+    }
+
+    private void OnSetsChanged(ExerciseInTrainingViewModel exercise, int value)
+    {
+        var capped = Math.Clamp(value, 1, 20);
+        if (exercise.Sets != capped)
+        {
+            exercise.Sets = capped;
+            hasPendingChanges = true;
+        }
+    }
+
+    private void OnRepsChanged(ExerciseInTrainingViewModel exercise, int value)
+    {
+        var capped = Math.Clamp(value, 1, 20);
+        if (exercise.Reps != capped)
+        {
+            exercise.Reps = capped;
+            hasPendingChanges = true;
+        }
+    }
+
+    private async Task SaveChangesAsync()
+    {
+        if (openedTraining is null)
+        {
+            return;
+        }
+
+        isSaving = true;
+        exercisesErrorMessage = null;
+
+        try
+        {
+            // Keep order consistent with table position
+            var ordered = openedExercises.OrderBy(e => e.Order).ToList();
+            for (var i = 0; i < ordered.Count; i++)
+            {
+                ordered[i].Order = i + 1;
+            }
+
+            // 1) Delete removed rows
+            foreach (var deletedId in deletedExerciseIds.Distinct())
+            {
+                var deleteResponse = await Http.DeleteAsync($"api/exerciseintraining/{deletedId}");
+                if (!deleteResponse.IsSuccessStatusCode &&
+                    deleteResponse.StatusCode != System.Net.HttpStatusCode.NotFound)
+                {
+                    exercisesErrorMessage = $"Failed to delete exercise row {deletedId}.";
+                    return;
+                }
+            }
+
+            // 2) Create/update current rows
+            foreach (var exercise in ordered)
+            {
+                if (exercise.Id <= 0)
+                {
+                    var createRequest = new CreateExerciseInTrainingDto(
+                        exercise.Sets,
+                        exercise.Reps,
+                        exercise.Order,
+                        exercise.IdExercise,
+                        openedTraining.Id);
+
+                    var createResponse = await Http.PostAsJsonAsync("api/exerciseintraining", createRequest);
+                    if (!createResponse.IsSuccessStatusCode)
+                    {
+                        exercisesErrorMessage = "Failed to create a new exercise row.";
+                        return;
+                    }
+                }
+                else
+                {
+                    var updateRequest = new UpdateExerciseInTrainingDto(exercise.Sets, exercise.Reps, exercise.Order);
+                    var updateResponse = await Http.PutAsJsonAsync($"api/exerciseintraining/{exercise.Id}", updateRequest);
+
+                    if (!updateResponse.IsSuccessStatusCode)
+                    {
+                        exercisesErrorMessage = $"Failed to save exercise row {exercise.Id}.";
+                        return;
+                    }
+                }
+            }
+
+            deletedExerciseIds.Clear();
+            hasPendingChanges = false;
+
+            // Reload with DB state
+            await OpenTrainingAsync(openedTraining);
+        }
+        catch (Exception ex)
+        {
+            exercisesErrorMessage = $"Failed to save changes: {ex.Message}";
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+
+    private void CloseTrainingModal()
+    {
+        openedTraining = null;
+        openedExercises.Clear();
+        availableExercises.Clear();
+        deletedExerciseIds.Clear();
+        exercisesErrorMessage = null;
+        hasPendingChanges = false;
+    }
+
     private void GoBackToPlans()
     {
         Navigation.NavigateTo("/plans");
     }
 
+    private void AskForDeleteTraining(TrainingDto training)
+    {
+        trainingToDelete = training;
+    }
+
+    private void CancelDeleteTraining()
+    {
+        trainingToDelete = null;
+    }
+
+    private async Task ConfirmDeleteTrainingAsync()
+    {
+        if (trainingToDelete is null)
+        {
+            return;
+        }
+
+        isDeletingTraining = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await Http.DeleteAsync($"api/training/{trainingToDelete.Id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (openedTraining?.Id == trainingToDelete.Id)
+                {
+                    CloseTrainingModal();
+                }
+
+                trainings.RemoveAll(t => t.Id == trainingToDelete.Id);
+                trainingToDelete = null;
+                return;
+            }
+
+            errorMessage = response.StatusCode == System.Net.HttpStatusCode.NotFound
+                ? "Training not found."
+                : $"Failed to delete training ({(int)response.StatusCode}).";
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to delete training: {ex.Message}";
+        }
+        finally
+        {
+            isDeletingTraining = false;
+        }
+    }
+
+    private void RemoveExercise(ExerciseInTrainingViewModel exercise)
+    {
+        if (exercise is null)
+        {
+            return;
+        }
+
+        if (exercise.Id > 0)
+        {
+            deletedExerciseIds.Add(exercise.Id);
+        }
+
+        openedExercises.Remove(exercise);
+        hasPendingChanges = true;
+    }
+
     private sealed record TrainingDto(int Id, DateOnly Date, int IdTrainingPlan, int IdTrainingTypeSequence);
+    private sealed record TrainingPlanDto(int Id, string PlanName, int TrainingFrequency, int IdUser, int IdTrainingType, int IdAimOfTraining);
+    private sealed record TrainingTypeSequenceDto(int Id, int OrderInCycle, int IdTrainingType, int IdMuscleGroup);
+    private sealed record MuscleGroupDto(int Id, string Name);
+    private sealed record ExerciseInTrainingDto(int Id, int Sets, int Reps, int Order, int IdExercise, int IdTraining);
+    private sealed record ExerciseDto(int Id, string Name, bool Complex, int IdMuscle);
+    private sealed record ExerciseOptionDto(int Id, string Name, bool Complex, int IdMuscle);
+    private sealed record UpdateExerciseInTrainingDto(int? Sets, int? Reps, int? Order);
+    private sealed record CreateExerciseInTrainingDto(int Sets, int Reps, int Order, int IdExercise, int IdTraining);
+
+    private sealed class ExerciseInTrainingViewModel
+    {
+        public int Id { get; set; }
+        public int Sets { get; set; }
+        public int Reps { get; set; }
+        public int Order { get; set; }
+        public int IdExercise { get; set; }
+        public int IdTraining { get; set; }
+        public string ExerciseName { get; set; } = string.Empty;
+        public bool IsNew { get; set; }
+    }
 }

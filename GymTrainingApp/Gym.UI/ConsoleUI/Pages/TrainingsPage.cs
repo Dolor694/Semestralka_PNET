@@ -1,6 +1,6 @@
 ﻿using Gym.Business;
-using Gym.Business.Interfaces;
-using Gym.Models.Entities;
+using Gym.Business.Services.TrainingService;
+using Gym.Models.TrainingEntity;
 using Gym.UI.ConsoleUI.Interfaces;
 using System;
 using System.Collections.Generic;

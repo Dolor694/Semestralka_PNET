@@ -1,6 +1,7 @@
 using Gym.Business.AOPStrategies;
 using Gym.Business.Factories;
-using Gym.Models.Entities;
+using Gym.Models.ExerciseEntity;
+using Gym.Models.ExerciseInTrainingEntity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gym.Tests.GeneratorTests

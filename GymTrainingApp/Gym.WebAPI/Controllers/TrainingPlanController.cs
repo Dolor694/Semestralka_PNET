@@ -1,6 +1,4 @@
-﻿using Gym.Business.Interfaces;
-using Gym.Models.Entities;
-using Gym.Models.Interfaces;
+﻿using Gym.Business.Services.TrainingPlanService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +8,6 @@ namespace Gym.WebAPI.Controllers
     [ApiController]
     public class TrainingPlanController : ControllerBase
     {
-
         private readonly ITrainingPlanService _trainingPlanService;
 
         public TrainingPlanController(ITrainingPlanService trainingPlanService)
@@ -18,7 +15,8 @@ namespace Gym.WebAPI.Controllers
             _trainingPlanService = trainingPlanService;
         }
 
-        // GET: api/TrainingPlan/5
+
+        // (GET) - Calls the TrainingPlanService to get a training plan by id.
         [HttpGet("{id}")]
         public IActionResult GetTrainingPlanById(int id)
         {
@@ -30,7 +28,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(trainingPlan);
         }
 
-        // GET: api/TrainingPlan/user/5
+
+        // (GET) - Calls the TrainingPlanService to get all training plans for a user by user id.
         [HttpGet("user/{userId}")]
         public IActionResult GetTrainingPlansByUserId(int userId)
         {
@@ -38,7 +37,8 @@ namespace Gym.WebAPI.Controllers
             return Ok(trainingPlans);
         }
 
-        // POST: api/TrainingPlan
+
+        // (POST) - Calls the TrainingPlanService to create a new training plan.
         [HttpPost("create")]
         public IActionResult CreateTrainingPlan([FromBody] TrainingPlanDto request)
         {
@@ -57,17 +57,18 @@ namespace Gym.WebAPI.Controllers
             }
         }
 
-        // PUT: api/TrainingPlan/5
+
+        // (PUT) - Calls the TrainingPlanService to update a training plan by id.
         [HttpPut("{id}")]
         public IActionResult UpdateTrainingPlan(int id, [FromBody] TrainingPlanDto request)
         {
             try
             {
                 var updatedPlan = _trainingPlanService.UpdateTrainingPlan(id,
-                                                                           request.PlanName,
-                                                                           request.TrainingFrequency,
-                                                                           request.IdTrainingType,
-                                                                           request.IdAimOfTraining);
+                                                                          request.PlanName,
+                                                                          request.TrainingFrequency,
+                                                                          request.IdTrainingType,
+                                                                          request.IdAimOfTraining);
                 return Ok(updatedPlan);
             }
             catch (Exception ex)
@@ -76,7 +77,8 @@ namespace Gym.WebAPI.Controllers
             }
         }
 
-        // DELETE: api/TrainingPlan/5
+
+        // (DELETE) - Calls the TrainingPlanService to delete a training plan by id.
         [HttpDelete("{id}")]
         public IActionResult DeleteTrainingPlan(int id)
         {

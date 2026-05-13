@@ -1,6 +1,5 @@
-using Gym.Business.Services;
-using Gym.Models.Entities;
-using Gym.Models.Interfaces;
+using Gym.Business.Services.TrainingTypeSequenceService;
+using Gym.Models.TrainingTypeSequenceEntity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

@@ -1,6 +1,6 @@
 ﻿using Gym.Business;
-using Gym.Business.Interfaces;
 using Gym.Business.Services;
+using Gym.Business.Services.UserService;
 using Gym.UI.ConsoleUI.Interfaces;
 using Microsoft.Extensions.Options;
 using System;

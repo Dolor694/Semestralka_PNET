@@ -1,5 +1,5 @@
 ﻿using Gym.Business;
-using Gym.Business.Interfaces;
+using Gym.Business.Services.TrainingPlanService;
 using Gym.UI.ConsoleUI.Interfaces;
 using System;
 using System.Collections.Generic;

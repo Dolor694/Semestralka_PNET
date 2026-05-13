@@ -1,4 +1,5 @@
-﻿using Gym.Models.Entities;
+﻿using Gym.Models.ExerciseEntity;
+using Gym.Models.ExerciseInTrainingEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
