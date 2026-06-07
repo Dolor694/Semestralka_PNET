@@ -12,8 +12,8 @@ namespace Gym.Tests.ServiceTests
         private static UserService _service = null!;
         private static List<User> _users = null!;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext _)
+        [TestInitialize]
+        public void ClassInitialize()
         {
             _users =
             [

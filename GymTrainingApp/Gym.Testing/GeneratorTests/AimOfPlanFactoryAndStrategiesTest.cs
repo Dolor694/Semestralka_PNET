@@ -1,5 +1,6 @@
 using Gym.Business.AOPStrategies;
 using Gym.Business.Factories;
+using Gym.Business.TrainingGenerator;
 using Gym.Models.ExerciseEntity;
 using Gym.Models.ExerciseInTrainingEntity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,6 +10,8 @@ namespace Gym.Tests.GeneratorTests
     [TestClass]
     public class AimOfPlanFactoryAndStrategiesTest
     {
+        private IExerciseMapper _exerciseMapper = new ExerciseMapper();
+
         private static AimOfPlanFactory _factory = null!;
         private static List<Exercise> _testExercises = null!;
 
@@ -17,10 +20,10 @@ namespace Gym.Tests.GeneratorTests
         private const int InvalidId = 0;
         private const int TestTrainingId = 50;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext _)
+        [TestInitialize]
+        public void TestInitialize()
         {
-            _factory = new AimOfPlanFactory();
+            _factory = new AimOfPlanFactory(_exerciseMapper);
             _testExercises =
             [
                 new Exercise { Id = 1, Name = "Compound", Complex = true, IdMuscle = 1 },
@@ -32,7 +35,6 @@ namespace Gym.Tests.GeneratorTests
         public void Create_ShouldReturnBuildMuscleStrategy_WhenIdIs1()
         {
             IAimOfPlanStrategy strategy = _factory.Create(BuildMuscleId);
-
             Assert.IsInstanceOfType(strategy, typeof(AOPBuildMuscle));
         }
 
@@ -53,7 +55,7 @@ namespace Gym.Tests.GeneratorTests
         [TestMethod]
         public void AOPBuildMuscle_ShouldContainComplexExercise()
         {
-            var strategy = new AOPBuildMuscle();
+            var strategy = new AOPBuildMuscle(_exerciseMapper);
             List<ExerciseInTraining> result = strategy.SetParametersOfExercises(_testExercises, TestTrainingId);
 
             Assert.Contains(x => x.IdExercise == 1, result);
@@ -62,7 +64,7 @@ namespace Gym.Tests.GeneratorTests
         [TestMethod]
         public void AOPBuildMuscle_ShouldContainNonComplexExercise()
         {
-            var strategy = new AOPBuildMuscle();
+            var strategy = new AOPBuildMuscle(_exerciseMapper);
             List<ExerciseInTraining> result = strategy.SetParametersOfExercises(_testExercises, TestTrainingId);
 
             Assert.Contains(x => x.IdExercise == 2, result);
@@ -71,7 +73,7 @@ namespace Gym.Tests.GeneratorTests
         [TestMethod]
         public void AOPBuildMuscle_HasExpectedOrder()
         {
-            var strategy = new AOPBuildMuscle();
+            var strategy = new AOPBuildMuscle(_exerciseMapper);
             List<ExerciseInTraining> result = strategy.SetParametersOfExercises(_testExercises, TestTrainingId);
 
             ExerciseInTraining complex = result.Single(x => x.IdExercise == 1);
@@ -83,7 +85,7 @@ namespace Gym.Tests.GeneratorTests
         [TestMethod]
         public void AOPBuildMuscle_HasExpectedTrainingId()
         {
-            var strategy = new AOPBuildMuscle();
+            var strategy = new AOPBuildMuscle(_exerciseMapper);
 
             List<ExerciseInTraining> result = strategy.SetParametersOfExercises(_testExercises, TestTrainingId);
 
@@ -93,7 +95,7 @@ namespace Gym.Tests.GeneratorTests
         [TestMethod]
         public void AOPBulidMuscle_HasComplexRange()
         {
-            var strategy = new AOPBuildMuscle();
+            var strategy = new AOPBuildMuscle(_exerciseMapper);
             List<ExerciseInTraining> result = strategy.SetParametersOfExercises(_testExercises, TestTrainingId);
             ExerciseInTraining complex = result.Single(x => x.IdExercise == 1);
 
@@ -103,7 +105,7 @@ namespace Gym.Tests.GeneratorTests
         [TestMethod]
         public void AOPBulidMuscle_HasNonComplexRange()
         {
-            var strategy = new AOPBuildMuscle();
+            var strategy = new AOPBuildMuscle(_exerciseMapper);
             List<ExerciseInTraining> result = strategy.SetParametersOfExercises(_testExercises, TestTrainingId);
             ExerciseInTraining isolation = result.Single(x => x.IdExercise == 2);
 

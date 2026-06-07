@@ -11,8 +11,8 @@ namespace Gym.Tests.ServiceTests
         private static TrainingPlanService _service = null!;
         private static List<TrainingPlan> _plans = null!;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext _)
+        [TestInitialize]
+        public void TestInitialize()
         {
             _plans =
             [

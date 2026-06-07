@@ -13,14 +13,13 @@ namespace Gym.Business.AOPStrategies
     {
         protected readonly IExerciseMapper _exerciseMapper;
 
-        public AOPBuildStrength()
+        public AOPBuildStrength(IExerciseMapper exerciseMapper)
         {
-            _exerciseMapper = new ExerciseMapper();
+            _exerciseMapper = exerciseMapper;
         }
 
         public List<ExerciseInTraining> SetParametersOfExercises(List<Exercise> exercises, int idTraining)
         {
-            Random random = new Random();
             List<ExerciseInTraining> exercisesInTraining = new List<ExerciseInTraining>();
 
             int order = 2;
@@ -29,14 +28,14 @@ namespace Gym.Business.AOPStrategies
             {
                 if (exercise.Complex)
                 {
-                    int sets = random.Next(3, 5);
-                    int reps = random.Next(3, 6);
+                    int sets = Random.Shared.Next(3, 5);
+                    int reps = Random.Shared.Next(3, 6);
                     exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, 1, idTraining));
                 }
                 else
                 {
-                    int sets = random.Next(3, 5);
-                    int reps = random.Next(8, 13);
+                    int sets = Random.Shared.Next(3, 5);
+                    int reps = Random.Shared.Next(8, 13);
                     exercisesInTraining.Add(_exerciseMapper.MapExercise(exercise, sets, reps, order, idTraining));
                     order++;
                 }

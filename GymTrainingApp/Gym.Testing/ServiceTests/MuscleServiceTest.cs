@@ -15,8 +15,8 @@ namespace Gym.Tests.ServiceTests
         private static List<Muscle> _muscles = null!;
         private static List<MuscleGroupMuscle> _mappings = null!;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext _)
+        [TestInitialize]
+        public void ClassInitialize()
         {
             _muscles =
             [

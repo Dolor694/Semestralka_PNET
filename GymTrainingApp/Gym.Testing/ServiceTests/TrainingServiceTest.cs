@@ -14,8 +14,8 @@ namespace Gym.Tests.ServiceTests
         private static List<Training> _trainings = null!;
         private static Mock<ITrainingGenerator> _generatorMock = null!;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext _)
+        [TestInitialize]
+        public void TestInitialize()
         {
             _trainings =
             [

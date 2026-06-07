@@ -17,8 +17,8 @@ namespace Gym.Tests.GeneratorTests
         private const int ExpectedOrder = 2;
         private const int ExpectedTrainingId = 99;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext _)
+        [TestInitialize]
+        public void TestInitialize()
         {
             _mapper = new ExerciseMapper();
             _exercise = new Exercise

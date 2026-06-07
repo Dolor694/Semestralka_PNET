@@ -18,6 +18,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Tests", "Gym.Testing\Gym.Tests.csproj", "{EBAF6AB8-1428-4D44-9544-3EFBE066F3CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.WebAPI", "Gym.WebAPI\Gym.WebAPI.csproj", "{FE2051D5-4979-4ABD-816D-D990103B5110}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DB6BF1F7-705F-48D1-B8D0-584322BAC652} = {DB6BF1F7-705F-48D1-B8D0-584322BAC652}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.WebUI", "Gym.WebUI\Gym.WebUI.csproj", "{DB6BF1F7-705F-48D1-B8D0-584322BAC652}"
 EndProject

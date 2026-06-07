@@ -18,8 +18,8 @@ namespace Gym.Tests.GeneratorTests
         private const int RequestedCount = 3;
         private const int FallbackGroupId = 999;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext _)
+        [TestInitialize]
+        public void TestInitialize()
         {
             _baseExercises =
             [

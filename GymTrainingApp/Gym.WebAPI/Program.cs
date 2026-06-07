@@ -24,6 +24,7 @@ using Gym.Models.TrainingTypeSequenceEntity;
 using Gym.Models.TrainingPlanEntity;
 using Gym.Models.UserEntity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,11 +72,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontends", policy =>
     {
-        policy.WithOrigins(
-                "https://localhost:7060", // WebUI https profile
-                "http://localhost:5110",  // WebUI http profile
-                "https://localhost:44313",// WebUI IIS Express (ssl)
-                "http://localhost:18281") // WebUI IIS Express (http)
+        policy.AllowAnyOrigin() // Simplified for production/local evaluation
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -88,8 +85,13 @@ using (IServiceScope scope = app.Services.CreateScope())
 {
     GymDbContext dbContext = scope.ServiceProvider.GetRequiredService<GymDbContext>();
     dbContext.Database.EnsureDeleted();
+    dbContext.Database.EnsureCreated(); // Ensure the file is created before seeding
     DbSeeder.Seed(dbContext);
 }
+
+// Order matters here!
+app.UseBlazorFrameworkFiles(); // This requires the above using directive
+app.UseStaticFiles();          // Serves the files from wwwroot
 
 if (app.Environment.IsDevelopment())
 {
@@ -101,5 +103,8 @@ app.UseHttpsRedirection();
 app.UseCors("AllowFrontends");
 app.UseAuthorization();
 app.MapControllers();
+
+// If no API route matches, serve the Blazor app
+app.MapFallbackToFile("index.html");
 
 app.Run();
